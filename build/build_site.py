@@ -1,8 +1,8 @@
-"""Build the Aiphabess website into site/ (book, newspaper, town map).
+"""Build the Aiphabess website into docs/ (book, newspaper, town map).
 
 python build/build_site.py   (run from the project root)
 Inputs : logo/mark_b2_*.svg, images/*.jpg + images/_sources.json, build/bgm.html, build/map_svg.py
-Output : site/index.html, site/news.html, site/map.html, site/assets/
+Output : docs/index.html, docs/news.html, docs/map.html, docs/assets/
 """
 import json, math, os, re
 
@@ -830,7 +830,7 @@ def page(fname, title, body):
     open(os.path.join(SITE, fname), "w", encoding="utf-8").write(html)
     return len(html)
 
-SITE = os.path.join(ROOT, "site")
+SITE = os.path.join(ROOT, "docs")
 os.makedirs(os.path.join(SITE, "assets", "img"), exist_ok=True)
 for k in SRC:
     shutil.copyfile(os.path.join(ROOT, "images", k + ".jpg"), os.path.join(SITE, "assets", "img", k + ".jpg"))

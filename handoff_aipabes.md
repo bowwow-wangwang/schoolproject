@@ -8,14 +8,14 @@
 
 | 페이지 | 형태 |
 |---|---|
-| `site/index.html` 세계관 책 | 책상 위의 가죽 장정 책. 책장을 넘겨 읽음 (StPageFlip) |
-| `site/news.html` 레큐란 석간 | 세계관 이해용 **견본호** 신문 한 부. 실시간/정기 발행 안 함 |
-| `site/map.html` 관광 안내 | 3단 접이식 관광 팸플릿. 표지 클릭 시 펼침, 지도 크게 보기 |
+| `docs/index.html` 세계관 책 | 책상 위의 가죽 장정 책. 책장을 넘겨 읽음 (StPageFlip) |
+| `docs/news.html` 레큐란 석간 | 세계관 이해용 **견본호** 신문 한 부. 실시간/정기 발행 안 함 |
+| `docs/map.html` 관광 안내 | 3단 접이식 관광 팸플릿. 표지 클릭 시 펼침, 지도 크게 보기 |
 
 ## 작업 방법
-- `python build/build_site.py` → `site/` 재생성. **HTML을 직접 고치지 말고 빌드 스크립트를 고칠 것**
-- 손으로 쓴 소스(빌드가 덮어쓰지 않음): `site/assets/book.css`, `site/assets/book.js`
-- 쪽 넘침 검사: `site/index.html?check` → 넘친 쪽 빨간 테두리 + 좌상단 `OVERFLOW[쪽:px]`
+- `python build/build_site.py` → `docs/` 재생성. **HTML을 직접 고치지 말고 빌드 스크립트를 고칠 것**
+- 손으로 쓴 소스(빌드가 덮어쓰지 않음): `docs/assets/book.css`, `docs/assets/book.js`
+- 쪽 넘침 검사: `docs/index.html?check` → 넘친 쪽 빨간 테두리 + 좌상단 `OVERFLOW[쪽:px]`
 - 지도 생성기: `build/map_svg.py`, 로고 생성기: `logo/gen_logo_b2.py`
 
 ## 확정된 결정
@@ -24,7 +24,7 @@
 - 인간계 영문 고유명칭: **Mortalia** (한글 본문은 "인간계" 유지) → `worldbuilding/용어집.md`
 - 폰트(전부 세리프): 제목 Song Myung / 본문 Gowun Batang / 인용·첫 문장 Diphylleia / 신문 헤드라인 Hahmlet / 라틴 IM Fell English
 - 이미지: 퍼블릭도메인 판화 14점, **사이트 전체에서 같은 그림 두 번 쓰지 않기**. 출처 `images/_sources.json`
-- 질감: CC0 사진 (Poly Haven, ambientCG) → `site/assets/tex`
+- 질감: CC0 사진 (Poly Haven, ambientCG) → `docs/assets/tex`
 
 ## 사용자가 거절한 것 (하지 말 것)
 - 코드로 그린 도형 같은 삽화·도장·게임 아이콘 → "도형 같다/유아틱"
