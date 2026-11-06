@@ -1,0 +1,256 @@
+/* Aiphabess — the book as a physical object.
+   Textures: CC0 photographs (Poly Haven, ambientCG) in assets/tex/.
+   All page sizes are in cqw (page width) so the layout is identical at any screen size. */
+
+html,body{margin:0;height:100%}
+body.desk{min-height:100vh;overflow-x:hidden;color:#e9d6ac;font-family:'Gowun Batang',serif;
+  background:#2a1a10 url(tex/desk.jpg) center/900px repeat}
+body.desk:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 70% 60% at 38% 28%,rgba(255,196,120,.22),transparent 60%),
+             radial-gradient(ellipse at 50% 50%,transparent 35%,rgba(10,5,2,.78) 100%)}
+body.desk:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 50% at 38% 28%,rgba(255,200,130,.08),transparent 70%);animation:lamp 6s infinite}
+@keyframes lamp{0%,100%{opacity:.85}45%{opacity:1}50%{opacity:.78}55%{opacity:.95}}
+body.desk>*{position:relative;z-index:1}
+
+/* top navigation: quiet engraved text, no buttons */
+.topnav{display:flex;justify-content:center;gap:2.4em;padding:18px 10px 0;font-size:15px;letter-spacing:.08em}
+.topnav a{color:#cdb382;text-decoration:none;padding-bottom:3px;border-bottom:1px solid transparent;text-shadow:0 1px 2px #000}
+.topnav a.on{color:#f3dc97;border-bottom-color:#c9a24b}
+.topnav a:hover{color:#f6e2a6}
+.topnav .la{font-family:'IM Fell English',serif;font-style:italic;font-size:.82em;opacity:.7;margin-left:.4em}
+
+.stage{display:flex;flex-direction:column;align-items:center;padding:26px 0 30px}
+.bookwrap{position:relative;width:min(1180px,92vw,calc((100vh - 150px) * 1.436));margin:0 auto;transition:transform .9s cubic-bezier(.3,.6,.2,1)}
+.bookwrap.closed{transform:translateX(-25%)}.bookwrap.closed-back{transform:translateX(25%)}
+.bookwrap.closed .stack,.bookwrap.closed-back .stack{opacity:0}
+.bookwrap.closed-back .tab{opacity:0;pointer-events:none}
+#book{margin:0 auto}
+.hint{text-align:center;font-size:13px;color:#a98c58;margin:62px 0 0;letter-spacing:.06em;text-shadow:0 1px 2px #000}
+.hint kbd{font-family:'IM Fell English SC',serif;border:1px solid #6b4a2a;padding:0 .4em;border-radius:3px}
+
+/* page stacks (edges of the remaining leaves) */
+.stack{transition:width .9s ease,opacity .5s;position:absolute;top:1.2%;bottom:1.2%;width:var(--w,0px);pointer-events:none;transition:width .9s ease;
+  background:repeating-linear-gradient(90deg,#d9c9a2 0 1px,#b9a67c 1px 2px),#cdbb92;box-shadow:0 6px 14px rgba(0,0,0,.6)}
+.stack.r{left:calc(100% - 2px);border-radius:0 3px 3px 0}
+.stack.l{right:calc(100% - 2px);border-radius:3px 0 0 3px}
+
+/* silk ribbon bookmark from the spine */
+.ribbon{position:absolute;left:calc(50% - 7px);bottom:-46px;width:14px;height:64px;z-index:-1;transform-origin:top center;
+  background:linear-gradient(90deg,#5a1410,#9c2b20 45%,#c4493a 55%,#7a1d16);clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%);
+  animation:sway 5s ease-in-out infinite;filter:drop-shadow(0 3px 3px rgba(0,0,0,.6))}
+@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+.bookwrap.closed .ribbon{left:calc(50% + 6px)}
+
+/* index tabs sticking out of the page edge */
+.tabs{position:absolute;inset:0;pointer-events:none}
+.tab{position:absolute;right:-56px;width:62px;height:5.2%;min-height:26px;pointer-events:auto;cursor:pointer;
+  display:flex;align-items:center;justify-content:flex-end;padding-right:9px;box-sizing:border-box;
+  font-family:'Song Myung',serif;font-size:clamp(11px,1.15vw,14px);color:#3a2616;
+  background:#c9b07a url(tex/kraft.jpg) center/300px;background-blend-mode:multiply;
+  border-radius:0 5px 5px 0;box-shadow:2px 2px 4px rgba(0,0,0,.55),inset -1px 0 0 rgba(255,255,255,.25);
+  transition:right .6s ease,left .6s ease,transform .25s,filter .25s;z-index:0}
+.tab:nth-child(odd){background-color:#b8956a}
+.tab:hover{transform:translateX(4px);filter:brightness(1.08)}
+.tab.on{filter:brightness(1.15);font-weight:700}
+.tab.passed{right:auto;left:-56px;justify-content:flex-start;padding:0 0 0 9px;border-radius:5px 0 0 5px}
+.tab.passed:hover{transform:translateX(-4px)}
+.bookwrap.closed .tab{opacity:0;pointer-events:none}
+
+/* ---------------- pages ---------------- */
+.page{container-type:inline-size;overflow:hidden}
+.page .pc{position:absolute;inset:0;overflow:hidden;box-sizing:border-box;padding:10.5cqw 8.5cqw 11cqw;
+  font-size:calc(100cqw / 35);line-height:1.78;color:#2b1f14;word-break:keep-all}
+.page.soft{background-color:#eedfbf;background-image:url(tex/paper.jpg);background-size:110cqw;background-blend-mode:multiply}
+.page.soft:after{content:"";position:absolute;inset:0;pointer-events:none}
+.page.l:after{background:linear-gradient(90deg,rgba(80,50,20,.10),transparent 12%,transparent 80%,rgba(60,35,12,.16) 92%,rgba(40,22,8,.42)),
+  radial-gradient(ellipse at 40% 50%,transparent 60%,rgba(110,72,30,.22))}
+.page.r:after{background:linear-gradient(270deg,rgba(80,50,20,.10),transparent 12%,transparent 80%,rgba(60,35,12,.16) 92%,rgba(40,22,8,.42)),
+  radial-gradient(ellipse at 60% 50%,transparent 60%,rgba(110,72,30,.22))}
+.pc>*{position:relative;z-index:1}
+.pc p,.pc h1,.pc h2,.pc h3,.pc ul,.pc ol,.pc figure,.pc table{margin:0;padding:0}
+.pc ul,.pc ol{list-style:none}
+.la{font-family:'IM Fell English',serif;font-style:italic}
+.sc{font-family:'IM Fell English SC',serif;letter-spacing:.16em}
+
+.rh{position:absolute!important;top:5cqw;font-family:'IM Fell English',serif;font-style:italic;font-size:.74em;color:#7a5f3e}
+.l .rh{left:8.5cqw}.r .rh{right:8.5cqw}
+.fo{position:absolute!important;bottom:5cqw;left:0;right:0;text-align:center;font-family:'IM Fell English',serif;font-size:.8em;letter-spacing:.14em;color:#7a5f3e}
+
+.cap{display:block;font-family:'IM Fell English SC',serif;font-size:.72em;letter-spacing:.24em;color:#6b4a2a;margin-bottom:.3em}
+.pc h2{font-family:'Song Myung',serif;font-weight:400;font-size:2.05em;line-height:1.22}
+.orn{height:1em;margin:.7em 0 1.1em;background:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 16'><g fill='none' stroke='%232b1f14' stroke-width='.8' stroke-linecap='round'><path d='M2,8 H44'/><path d='M76,8 H118'/><path d='M44,8 C48,2 54,3 54,8 C54,12 50,12 49.5,9.5'/><path d='M76,8 C72,2 66,3 66,8 C66,12 70,12 70.5,9.5'/></g><path d='M60,2 L64,8 L60,14 L56,8 Z' fill='%232b1f14'/></svg>") left center/7.5em 1em no-repeat}
+.orn.c{background-position:center}
+.pc h3{font-family:'Song Myung',serif;font-weight:400;font-size:1.18em;line-height:1.4;margin-bottom:.2em}
+.pc h3:before{content:"§ ";font-family:'IM Fell English',serif;color:#6b4a2a}
+.pc p+p{margin-top:.75em}
+.pc article+article{margin-top:1em}
+.drop:first-letter{float:left;font-family:'Song Myung',serif;font-size:3.3em;line-height:.95;padding:.05em .1em 0 0;color:#4a2a14}
+.lead{font-family:'Diphylleia',serif;font-size:1.12em;line-height:1.65}
+
+/* engraved plates printed onto the paper */
+.plate{margin:.2em 0 .9em}
+.plate .im{border:1px solid rgba(43,31,20,.6);padding:.3em;outline:1px solid rgba(43,31,20,.25);outline-offset:.18em;overflow:hidden}
+.plate img{display:block;width:100%;height:auto;mix-blend-mode:multiply;filter:sepia(.55) contrast(1.08) brightness(1.02)}
+.plate.crop .im{aspect-ratio:4/3}.plate.crop img{height:100%;object-fit:cover}
+.plate.tall .im{aspect-ratio:4/5.2}.plate.tall img{height:100%;object-fit:cover}
+.plate figcaption{display:flex;justify-content:space-between;gap:.6em;align-items:baseline;padding-top:.5em;font-size:.82em}
+.plate figcaption .sc{font-size:.85em;color:#6b4a2a;white-space:nowrap}
+.plate figcaption small{display:block;font-family:'IM Fell English',serif;font-style:italic;font-size:.82em;color:#7a5f3e;text-align:right}
+
+/* components carried from the earlier book */
+.els{display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(43,31,20,.55);margin-top:.4em}
+.el{padding:.8em .6em .7em;text-align:center}
+.el:nth-child(odd){border-right:1px solid rgba(43,31,20,.3)}.el:nth-child(-n+2){border-bottom:1px solid rgba(43,31,20,.3)}
+.el svg{display:block;margin:0 auto .2em;width:1.8em;height:1.8em;color:#4a2a14}
+.el b{display:block;font-family:'Song Myung',serif;font-weight:400;font-size:1.35em;line-height:1.2}
+.el .la{display:block;font-size:.72em;color:#7a5f3e}
+.el .gd{margin-top:.35em;font-size:.88em;font-weight:700}
+.el .kw{font-size:.8em;color:#6b4a2a;line-height:1.5}
+.menu{margin-top:.5em}.menu div{display:flex;align-items:baseline;gap:.4em;padding:.2em 0}
+.menu b{font-family:'Song Myung',serif;font-weight:400}.menu i{flex:1;border-bottom:1px dotted rgba(43,31,20,.5);transform:translateY(-.25em)}
+.menu span{font-size:.86em;color:#6b4a2a}
+.bq{border-left:2px solid #2b1f14;padding:.2em 0 .2em 1em}
+.bq b{display:block;font-family:'Diphylleia',serif;font-weight:400;font-size:1.28em;line-height:1.5}
+.bq span{display:block;margin-top:.4em;font-size:.88em;color:#6b4a2a}
+.ranks{display:grid;gap:.6em;margin-top:.9em}
+.rk{display:grid;grid-template-columns:auto 1fr;gap:.9em;align-items:center;padding:.6em 0;border-top:1px solid rgba(43,31,20,.35)}
+.rk:last-child{border-bottom:1px solid rgba(43,31,20,.35)}
+.rk svg{width:4.6em;height:auto;display:block;filter:drop-shadow(0 .15em .15em rgba(60,35,10,.35))}
+.rk b{font-family:'Song Myung',serif;font-weight:400;font-size:1.06em}.rk p{font-size:.86em;color:#6b4a2a;line-height:1.6}
+.route{counter-reset:r;margin:.9em 0 .3em 1.2em;border-left:1px solid rgba(43,31,20,.5);padding-left:1.1em}
+.route li{position:relative;padding:.15em 0 .4em}
+.route li:before{counter-increment:r;content:counter(r,upper-roman);position:absolute;left:-1.85em;top:.3em;width:1.4em;height:1.4em;border-radius:50%;background:#eedfbf;border:1px solid #2b1f14;font-family:'IM Fell English SC',serif;font-size:.62em;line-height:1.35em;text-align:center}
+.route b{display:block;font-family:'Song Myung',serif;font-weight:400}.route span{font-size:.84em;color:#6b4a2a}
+.ticket{display:grid;grid-template-columns:1fr auto;margin:.8em 0;border:1px solid rgba(43,31,20,.6);outline:1px solid rgba(43,31,20,.3);outline-offset:-.3em;background:rgba(255,250,235,.25)}
+.ticket .tl{padding:.6em .9em}.ticket .tl .sc{font-size:.62em;color:#6b4a2a;display:block}
+.ticket .tl b{display:block;font-family:'Song Myung',serif;font-weight:400;font-size:1.12em}.ticket .tl span{font-size:.78em;color:#6b4a2a}
+.ticket .tr{padding:.6em .9em;border-left:1px dashed rgba(43,31,20,.6);text-align:center;font-family:'IM Fell English SC',serif;letter-spacing:.12em;font-size:.68em;color:#6b4a2a;display:flex;flex-direction:column;justify-content:center}
+.ticket .tr b{font-family:'Song Myung',serif;font-weight:400;font-size:1.35em;letter-spacing:.05em;color:#7b2d22}
+.trio>div+div{margin-top:.9em}
+.goldrow{display:flex;align-items:center;gap:.9em;margin-top:1em;padding:.6em 0;border-top:1px solid rgba(43,31,20,.35);border-bottom:1px solid rgba(43,31,20,.35)}
+.goldrow svg{width:3.6em;height:auto}.goldrow b{font-family:'Song Myung',serif;font-weight:400;font-size:1.2em;display:block;line-height:1.3}.goldrow span{font-size:.8em;color:#6b4a2a}
+.cat{display:grid;margin-top:1em;border:1px solid rgba(43,31,20,.6)}.cat>div{padding:.8em .9em}
+.cat .l{background:rgba(255,252,240,.55)}.cat .d{background:#231912;color:#dcc492}.cat .d h3:before{color:#a98c58}
+.cat p{font-size:.86em;line-height:1.7}
+.rum{display:grid;gap:.9em}.rm{padding:.1em 0 0 1em;border-left:3px double rgba(43,31,20,.7)}.rm .sc{font-size:.62em;color:#6b4a2a}.rm p{font-size:.94em}
+.fm{margin:.8em 0;padding:.7em .8em;border-top:1px solid #2b1f14;border-bottom:1px solid #2b1f14;text-align:center}
+.fm .f{font-family:'IM Fell English',serif;font-size:1.45em}.fm p{font-size:.8em;color:#6b4a2a}
+.qt{padding:.7em .9em;background:rgba(43,31,20,.06);border-left:2px solid #2b1f14}.qt p{font-family:'Diphylleia',serif;font-size:.98em}
+.dialw{width:88%;margin:0 auto}.dial{width:100%;height:auto;display:block}
+.dial .needle{transform-box:view-box;transform-origin:200px 200px}
+.dcap{text-align:center;font-size:.82em;color:#6b4a2a;margin-top:.3em}
+table.tar{width:100%;border-collapse:collapse;font-size:.74em;line-height:1.4}
+.tar th{font-family:'IM Fell English SC',serif;font-weight:400;letter-spacing:.12em;font-size:.9em;color:#6b4a2a;text-align:left;padding:.2em .3em .4em;border-bottom:1px solid #2b1f14}
+.tar th:first-child{width:3.6em}.tar th:nth-child(2){width:31%}
+.tar td{padding:.42em .3em;border-bottom:1px solid rgba(43,31,20,.2);vertical-align:middle;color:#5a4128}
+.tar .rn{display:inline-block;min-width:3em;padding:.15em 0 .05em;text-align:center;font-family:'IM Fell English SC',serif;border:1px solid rgba(43,31,20,.55)}
+.tar td:nth-child(2) b{display:block;font-family:'Song Myung',serif;font-weight:400;font-size:1.12em;color:#2b1f14}
+.tar td:nth-child(2) .la{font-size:.85em;color:#7a5f3e}
+.tar tr.now td{background:rgba(201,162,75,.25)}
+.tar tr.now .rn{background:linear-gradient(135deg,#f3dc97,#c99d45 50%,#e2c070);border-color:#2a170d}
+
+/* contents page */
+.toc li{display:grid;grid-template-columns:auto 1fr auto;align-items:baseline;gap:.5em;padding:.35em 0}
+.toc a{cursor:pointer;font-family:'Song Myung',serif;font-size:1.1em;color:#2b1f14;text-decoration:none}
+.toc a:hover{color:#7b2d22}
+.toc a .la{font-family:'IM Fell English',serif;font-size:.62em;color:#7a5f3e;margin-left:.5em}
+.toc i{border-bottom:1px dotted rgba(43,31,20,.5);transform:translateY(-.3em)}
+.toc span{font-family:'IM Fell English',serif}
+.facts{display:grid;grid-template-columns:1fr 1fr;margin-top:1.3em;border-top:1px solid rgba(43,31,20,.5);border-bottom:1px solid rgba(43,31,20,.5)}
+.facts div{padding:.5em .6em;font-size:.78em;line-height:1.55;color:#6b4a2a}
+.facts div:nth-child(odd){border-right:1px solid rgba(43,31,20,.25)}.facts div:nth-child(-n+2){border-bottom:1px solid rgba(43,31,20,.25)}
+.facts b{display:block;font-family:'Song Myung',serif;font-weight:400;font-size:1.25em;color:#2b1f14}
+
+/* covers: leather with blind-tooled frame and gold foil */
+.page.hard{background:#3a1d10 url(tex/leather.jpg) center/120cqw;box-shadow:inset 0 0 6cqw rgba(0,0,0,.55)}
+.page.hard:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 35% 25%,rgba(255,210,150,.16),transparent 60%),linear-gradient(rgba(30,12,4,.25),rgba(30,12,4,.25))}
+.cover .pc{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:12cqw}
+.cover .pc:before,.cover .pc:after{content:"";position:absolute;pointer-events:none;border-radius:1px}
+.cover .pc:before{inset:5.5cqw;border:1px solid rgba(0,0,0,.55);box-shadow:1px 1px 0 rgba(255,220,170,.12),inset 1px 1px 0 rgba(255,220,170,.1)}
+.cover .pc:after{inset:7.5cqw;border:2px solid #b8913f;opacity:.85;box-shadow:0 0 0 1cqw transparent,0 0 0 calc(1cqw + 1px) rgba(184,145,63,.6)}
+.gold{background:linear-gradient(135deg,#f6e0a0 0%,#c99d45 28%,#f0d488 50%,#9c7432 74%,#e2c070 100%);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 1px 0 rgba(0,0,0,.65)) drop-shadow(0 -1px 0 rgba(255,230,180,.15))}
+.cover svg.mark{width:30cqw;height:auto;filter:drop-shadow(0 1.2cqw 1.4cqw rgba(0,0,0,.6));margin-bottom:5cqw}
+.cover h1{margin:0;font-family:'Song Myung',serif;font-weight:400;font-size:2.9em;letter-spacing:.14em;line-height:1.1}
+.cover .sc{font-size:.9em;letter-spacing:.55em;margin-top:.7em}
+.cover .la{font-size:1.1em;margin-top:.4em}
+.cover .rule{width:40%;height:1px;margin:1.6em auto;background:linear-gradient(90deg,transparent,#c99d45,transparent)}
+.cover small{font-family:'IM Fell English SC',serif;letter-spacing:.3em;font-size:.65em}
+.back .pc{display:flex;align-items:center;justify-content:center}
+.back svg{width:16cqw;height:auto;opacity:.5;filter:brightness(.6) contrast(1.2)}
+
+/* end papers, title page, epigraph, colophon */
+.page.endpaper{background:#a9865a url(tex/kraft.jpg) center/90cqw;background-blend-mode:multiply}
+.exlibris{margin:auto;width:70%;padding:1.4em 1.2em;text-align:center;background:#efe2c4 url(tex/paper.jpg) center/80cqw;background-blend-mode:multiply;
+  border:1px solid #2b1f14;outline:1px solid rgba(43,31,20,.5);outline-offset:-.5em;box-shadow:0 .3em .8em rgba(40,20,5,.35);transform:rotate(-1.2deg)}
+.exlibris .sc{display:block;font-size:.95em;letter-spacing:.4em}
+.exlibris svg{width:28%;height:auto;margin:.8em auto;display:block;color:#2b1f14}
+.exlibris p{font-size:.82em;color:#6b4a2a}
+.endpaper .pc{display:flex}
+.title .pc{display:flex;flex-direction:column;align-items:center;text-align:center;justify-content:center}
+.title svg{width:22%;height:auto;color:#2b1f14;margin-bottom:1.4em}
+.title h1{margin:0;font-family:'Song Myung',serif;font-weight:400;font-size:2.7em;letter-spacing:.12em}
+.title .sc{font-size:.85em;letter-spacing:.5em;margin-top:.5em}
+.title .la{font-size:1.05em;margin-top:.2em;color:#6b4a2a}
+.title .ds{max-width:85%;margin-top:1.4em;font-size:.92em;color:#4a3420}
+.title .imp{position:absolute;bottom:13cqw;left:0;right:0;font-size:.72em;color:#7a5f3e}
+.epigraph .pc{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.epigraph p.q{font-family:'Diphylleia',serif;font-size:1.55em;line-height:1.7;max-width:80%}
+.epigraph .la{color:#6b4a2a;font-size:.85em;margin-top:.8em}
+.bgm h4{margin:.6em 0 .15em;font-family:'Song Myung',serif;font-weight:400;font-size:.95em;border-bottom:1px solid rgba(43,31,20,.35)}
+.bgm .bgs{columns:2;column-gap:1.4em;font-size:.68em;line-height:1.55}
+.bgm .bg{break-inside:avoid}
+.bgm li{display:flex;justify-content:space-between;gap:.5em}
+.bgm a{color:#7b2d22;font-size:.92em;text-decoration:none}.bgm span{opacity:.7}
+.bgm p{font-size:.78em;color:#6b4a2a}
+.colophon{font-size:.7em;line-height:1.7;color:#4a3420}
+.colophon h3{font-size:1.25em}
+.colophon a{color:#7b2d22;text-decoration:none}
+.colophon ul li{padding:.15em 0}
+
+/* entrance animations inside freshly shown pages */
+.page .pc>*{animation:ink .9s ease both}
+@keyframes ink{from{opacity:0;filter:blur(1.5px)}to{opacity:1;filter:none}}
+.dial .needle{animation:swing 2.4s cubic-bezier(.15,.85,.25,1) .4s both}
+@keyframes swing{from{transform:rotate(-220deg)}to{transform:rotate(0)}}
+@media (prefers-reduced-motion:reduce){*,body.desk:after{animation:none!important;transition:none!important}}
+
+/* overflow check mode (?check): pages laid flat at design size */
+body.check #book{display:grid;grid-template-columns:repeat(4,560px);gap:10px;width:auto}
+body.check .page{position:relative;width:560px;height:780px}
+body.check .page.flag{outline:4px solid red}
+body.check #chk{position:fixed;left:0;top:0;z-index:99;margin:0;padding:8px 14px;background:#000;color:#ff0;font:28px monospace}
+.plate.crop.wide .im{aspect-ratio:16/9}
+.route li{padding:.1em 0 .25em}.route b{display:inline}.route span:before{content:" — "}
+
+/* ===== rail ticket glued onto the page (vintage invitation style) ===== */
+.tk-glue{margin:1.1em -.4em .2em;rotate:-2.2deg;position:relative}
+.tk-glue figcaption{text-align:right;font-family:'IM Fell English',serif;font-style:italic;font-size:.72em;color:#7a5f3e;rotate:2.2deg;margin-top:.5em}
+.tk{position:relative;aspect-ratio:1200/555;container-type:inline-size;color:#1d1712;
+  filter:drop-shadow(0 1px 0 rgba(60,35,10,.35)) drop-shadow(0 .5cqw .7cqw rgba(50,30,10,.35)) drop-shadow(1.6cqw 1.6cqw 1.2cqw rgba(40,22,8,.22))}
+.tk:after{content:"";position:absolute;right:0;bottom:0;width:30%;height:40%;pointer-events:none;
+  background:linear-gradient(135deg,transparent 60%,rgba(255,240,210,.18) 80%,rgba(60,35,10,.12));clip-path:polygon(100% 0,100% 100%,0 100%)}
+.tk-bg{position:absolute;inset:0;width:100%;height:100%}
+.tk>div{position:absolute;line-height:1.15}
+.tk-h{left:4%;right:24%;top:5.5%;text-align:center}
+.tk-h i{display:block;font-family:'IM Fell English',serif;font-size:3.3cqw}
+.tk-h span{display:block;font-family:'IM Fell English SC',serif;font-size:3cqw;letter-spacing:.12em;margin-top:.9cqw}
+.tk-h em{font-style:normal;color:#a8740f;font-weight:700}
+.tk-side{left:3%;top:24.5%;width:16%;height:49%;display:flex;flex-direction:row-reverse;justify-content:center;gap:1.6cqw}
+.tk-side i{writing-mode:vertical-rl;font-family:'IM Fell English',serif;font-size:3.6cqw}
+.tk-list{white-space:nowrap;writing-mode:vertical-rl;font-family:'IM Fell English SC',serif;font-size:2.2cqw;letter-spacing:.14em}
+.tk-top{left:20.5%;right:23.5%;top:25.5%;height:22%}
+.tk-top span{display:block;font-family:'IM Fell English SC',serif;font-size:2.9cqw;letter-spacing:.1em;line-height:1.55}
+.tk-gold{position:absolute;right:1%;top:14%;font-style:normal;font-family:'IM Fell English',serif;font-size:4.6cqw;color:#a8740f;letter-spacing:.04em}
+.tk-big{left:22%;right:23.5%;top:48%;height:25%;display:flex;align-items:center;justify-content:center;
+  font-family:'IM Fell English SC',serif;font-weight:400;font-size:7.6cqw;letter-spacing:.16em;line-height:1}
+.tk-big sup{font-family:'Song Myung',serif;font-weight:400;font-size:.36em;vertical-align:top;margin-left:.15em;position:relative;top:.1em}
+.tk-bl{left:4%;width:35%;top:77%}
+.tk-br{left:42.5%;right:24%;top:77%;text-align:center}
+.tk-bl span,.tk-br span{display:block;font-family:'IM Fell English SC',serif;font-size:2.6cqw;letter-spacing:.08em}
+.tk-bl small,.tk-br small{display:block;font-family:'IM Fell English',serif;font-style:italic;font-size:2.3cqw;margin-top:.8cqw}
+.tk b{font-weight:400;opacity:.7}
+.tk-stub{left:79.5%;right:1.5%;top:8%;bottom:8%;display:flex;flex-direction:row-reverse;justify-content:center;align-items:center;gap:7cqw}
+.tk-stub i{writing-mode:vertical-rl;font-family:'IM Fell English',serif;font-size:4cqw}
+.tk-stub span{writing-mode:vertical-rl;font-family:'IM Fell English SC',serif;font-size:2.2cqw;letter-spacing:.12em}
+.tk-stamp{position:absolute;left:-1.5%;top:49%;width:17%;rotate:-18deg;mix-blend-mode:multiply}
