@@ -281,3 +281,43 @@ body.render .page.soft:after{background:radial-gradient(ellipse at 50% 50%,trans
 .rk .rn1 small{font-size:.6em;margin:0 .05em}
 .goldrow .coinimg{width:3.8em;height:auto;clip-path:circle(46% at 50% 50%);mix-blend-mode:multiply;filter:sepia(1) saturate(1.45) hue-rotate(-10deg) contrast(1.1) brightness(.9)}
 .plate.crop.wide.flat .im{aspect-ratio:2.3/1}
+
+/* ===== 천마계 통판북: two stapled catalogues lying on the page ===== */
+.cats{position:relative;height:25.2em;margin:1.1em 0 .2em}
+.cbk{position:absolute;width:56%;margin:0;filter:drop-shadow(0 .12em .1em rgba(40,22,8,.35)) drop-shadow(.5em .7em .7em rgba(40,22,8,.28))}
+.cbk.heaven{left:0;top:0;rotate:-4deg;z-index:1}
+.cbk.hell{right:-.4em;top:2.6em;rotate:3.2deg;z-index:2}
+.cbk .cv{position:relative;padding:.9em .95em .8em 1.35em;font-size:.62em;line-height:1.45;
+  box-shadow:1px 1px 0 rgba(0,0,0,.08),2px 2px 0 rgba(255,255,255,.35),3px 3px 0 rgba(0,0,0,.1),4px 4px 0 rgba(255,255,255,.25)}
+.cbk .cv:before{content:"";position:absolute;left:0;top:0;bottom:0;width:.75em;background:linear-gradient(90deg,rgba(0,0,0,.28),rgba(0,0,0,.06) 70%,transparent)}
+.cbk .cv:after{content:"";position:absolute;left:.32em;top:16%;height:68%;width:2px;
+  background:linear-gradient(#9a9a96 0 6%,transparent 6% 94%,#9a9a96 94%);opacity:.85}
+.cbk .ct{display:block;text-align:center;font-family:'IM Fell English SC',serif;letter-spacing:.2em;font-size:.95em}
+.cbk .cimg{margin:.5em 0 .55em;aspect-ratio:4/3;overflow:hidden}
+.cbk .cimg img{display:block;width:100%;height:100%;object-fit:cover}
+.cbk h4{margin:0;text-align:center;line-height:1.15}
+.cbk .cl{display:block;text-align:center;font-family:'IM Fell English',serif;font-style:italic;font-size:.95em;margin-bottom:.45em}
+.cbk ul{margin:.2em 0 0;padding:0;list-style:none}
+.cbk li{padding:.12em 0 .12em .9em;position:relative;font-size:1em}
+.cbk li:before{content:"";position:absolute;left:.1em;top:.68em;width:.34em;height:.34em;rotate:45deg}
+.cbk .sig{margin-top:.75em;padding-top:1.2em;border-bottom:1px solid currentColor;font-size:.88em;opacity:.8}
+/* 천계: white paper, gold rules, quiet serif */
+.cbk.heaven .cv{background:#f8f3e6 url(tex/paper.jpg) center/30em;background-blend-mode:multiply;color:#2e2418;
+  outline:1px solid #b38a2e;outline-offset:-.5em}
+.cbk.heaven .ct,.cbk.heaven .cl{color:#9b7424}
+.cbk.heaven h4{font-family:'Song Myung',serif;font-weight:400;font-size:2.15em;letter-spacing:.06em}
+.cbk.heaven .cimg{border:1px solid #b38a2e}
+.cbk.heaven .cimg img{mix-blend-mode:multiply;filter:grayscale(1) sepia(.25) contrast(1.05) brightness(1.05)}
+.cbk.heaven li:before{background:#b38a2e}
+/* 마계: black paper, bone ink, red accents, heavy type */
+.cbk.hell .cv{background:#1c1613;color:#e6dac2;outline:1px solid #8d2a1d;outline-offset:-.5em;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 .9 0 0 0 0 .8 0 0 0 .07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>")}
+.cbk.hell .cv:before{background:linear-gradient(90deg,rgba(0,0,0,.6),rgba(0,0,0,.15) 70%,transparent)}
+.cbk.hell .ct,.cbk.hell .cl{color:#c7473a}
+.cbk.hell h4{font-family:'Hahmlet',serif;font-weight:900;font-size:2.05em;letter-spacing:-.02em;color:#f1e6cf}
+.cbk.hell .cimg{border:1px solid #8d2a1d}
+.cbk.hell .cimg img{filter:grayscale(1) contrast(1.25) brightness(.85)}
+.cbk.hell li:before{background:#c7473a}
+.cbk.hell .warn{margin-top:.6em;padding:.25em 0;text-align:center;background:#8d2a1d;color:#f6e7d2;font-family:'Hahmlet',serif;font-weight:700;letter-spacing:.08em;font-size:.95em}
+.catcred{text-align:right;font-family:'IM Fell English',serif;font-style:italic;font-size:.66em;color:#7a5f3e;margin-top:.3em}
+.colophon ul{columns:2;column-gap:1.4em;font-size:.9em}.colophon ul li{break-inside:avoid}

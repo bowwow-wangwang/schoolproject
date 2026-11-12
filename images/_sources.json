@@ -190,5 +190,23 @@
   "license": "Public domain",
   "artist": "William Harry Rogers",
   "date": "1859"
+ },
+ {
+  "key": "cat_heaven",
+  "title": "File:Paradiso Canto 31 (no caption).jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Paradiso_Canto_31_%28no_caption%29.jpg/1280px-Paradiso_Canto_31_%28no_caption%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Paradiso_Canto_31_(no_caption).jpg",
+  "license": "Public domain",
+  "artist": "Gustave Doré",
+  "date": "19th centurydate QS:P,+1850-00"
+ },
+ {
+  "key": "cat_hell",
+  "title": "File:Gustave Doré - Dante Alighieri - Inferno - Plate 13 (Canto V - Minos).jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/57/Gustave_Dor%C3%A9_-_Dante_Alighieri_-_Inferno_-_Plate_13_%28Canto_V_-_Minos%29.jpg/1280px-Gustave_Dor%C3%A9_-_Dante_Alighieri_-_Inferno_-_Plate_13_%28Canto_V_-_Minos%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Gustave_Dor%C3%A9_-_Dante_Alighieri_-_Inferno_-_Plate_13_(Canto_V_-_Minos).jpg",
+  "license": "Public domain",
+  "artist": "Gustave Doré",
+  "date": "Originally 1857"
  }
 ]

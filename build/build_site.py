@@ -542,8 +542,20 @@ wld1_r = ('<div class="trio" style="margin-top:8px">'
           f'<div class="goldrow"><img class="coinimg" src="{img_url("coin")}" alt="옛 주화 판화"><div><b>100골드 = 약 10,000원</b><span>한화 기준 환산</span></div></div>')
 wld2_l = ('<h3 style="font-size:22px;margin-top:8px">천마계 통판북</h3>'
           '<p>천계와 마계의 물품을 정리한 카탈로그. 주 이용 연령층은 22세에서 80세까지다. 서명이 끝나면 보유 금액에서 자동으로 차감되고 5초 안에 배달된다.</p>'
-          '<div class="cat"><div class="l"><h3>천계 상품</h3><p>흰 종이에 단정한 서체로 인쇄되어 있다. 흰 깃털 펜으로 서명한다.</p></div>'
-          '<div class="d"><h3>마계 상품</h3><p>검은 종이에 강렬한 서체로 인쇄되어 있다. 검은 깃털 펜 또는 검은 볼펜으로 서명한다. 장난용이거나 위험한 물품이 섞여 있어 18세 미만은 사용할 수 없다.</p></div></div>')
+          '<p>천계 상품은 흰 종이에 단정한 서체로, 마계 상품은 검은 종이에 강렬한 서체로 인쇄되어 있다.</p>'
+          '<div class="cats">'
+          f'<figure class="cbk heaven"><div class="cv"><span class="ct">Catalogus Caelestis</span>'
+          f'<div class="cimg"><img src="{img_url("cat_heaven")}" alt="천상의 장미 판화" loading="lazy"></div>'
+          '<h4>천계 통판북</h4><span class="cl">Celestial Mail Order</span>'
+          '<ul><li>흰 깃털 펜으로 서명</li><li>서명 즉시 보유 금액에서 차감</li><li>5초 안에 배달</li></ul>'
+          '<div class="sig">서명</div></div></figure>'
+          f'<figure class="cbk hell"><div class="cv"><span class="ct">Catalogus Infernalis</span>'
+          f'<div class="cimg"><img src="{img_url("cat_hell")}" alt="지옥의 심판관 미노스 판화" loading="lazy"></div>'
+          '<h4>마계 통판북</h4><span class="cl">Infernal Mail Order</span>'
+          '<ul><li>검은 깃털 펜 또는 검은 볼펜으로 서명</li><li>장난용·위험 물품 포함</li></ul>'
+          '<div class="warn">18세 미만 이용 불가</div><div class="sig">서명</div></div></figure>'
+          '</div>'
+          '<p class="catcred">표지 판화: Gustave Doré, 『신곡』 천국편 31곡 · 지옥편 5곡</p>')
 wld2_r = plate("lighthouse", "포구의 등대", "crop wide", "폭풍 치는 해안에 선 등대") + ticket_html()
 H.append(('wld', spread(wld1_l, wld1_r, rh_l="Worlds", fol=(14, 15), sid="wld") + spread(wld2_l, wld2_r, rh_l="Worlds", fol=(16, 17))))
 
