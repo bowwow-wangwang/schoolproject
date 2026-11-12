@@ -448,7 +448,7 @@ toc_items = [("pro", "프롤로그", "Prologue", 2), ("el", "네 명의 학자, 
              ("sch", "학교에서 지낸다는 것", "The School", 8), ("mag", "마력과 마법사", "Magic &amp; Rank", 12),
              ("wld", "세계와 차원열차", "Worlds", 14), ("rum", "아직 닿지 않은 것들", "Rumors", 18),
              ("tm", "태양이 도는 방식", "The Cycle of Suns", 20)]
-toc = "".join(f'<li><a data-goto="@@{k}@@">{t}<span class="la">{e}</span></a><i></i><span>@@n:{k}@@</span></li>' for k, t, e, p in toc_items)
+toc = "".join(f'<li><a href="#p@@{k}@@" data-goto="@@{k}@@">{t}<span class="la">{e}</span></a><i></i><span>@@n:{k}@@</span></li>' for k, t, e, p in toc_items)
 cover_l = (f'{logo("cv")}<h1>아이파베스</h1><p class="sc">AIPHABESS</p><p class="la">School of All Origins</p>'
            f'<div class="orn-g"></div>'
            f'<p class="ds">5개 명문 학교 중 하나. 마법 학교이자 대도서관. 모든 종족이 이해를 배우는 곳. 레큐란 대륙 남쪽, 삼면이 바다인 반도 위의 대도시.</p>')
@@ -713,18 +713,18 @@ background-image:radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(90,70,4
 .ap .rk svg,.ap .goldrow svg{transition:transform .5s}.ap .rk:hover svg,.ap .goldrow:hover svg{transform:rotate(12deg) scale(1.06)}
 .ap .si,.ap .tb{transition:background .25s,color .25s}
 .ap .np{animation:ap-drop 1.1s cubic-bezier(.2,.7,.2,1) both}
-.ap .np-front>*,.ap .np .cols>*{animation:ap-rise .8s both}
-__NP_DELAYS__
+
+
 .ap .np figure img{transition:filter .6s}.ap .np figure:hover img{filter:grayscale(.3) sepia(.4) contrast(1.05)}
-.ap .tmap .coast{stroke-dasharray:1;animation:ap-draw 3.2s cubic-bezier(.4,.1,.2,1) .4s both}
-.ap .tmap .wl{animation:ap-fade 2.4s 1.6s both}
-.ap .tmap .dm{transform-box:fill-box;transform-origin:center;animation:ap-pop .6s both}
-__DM_DELAYS__
-.ap .tmap .fog{animation:ap-drift 7s ease-in-out infinite alternate}
-.ap .tmap .beam{animation:ap-beam 2.6s ease-in-out infinite}
-.ap .tmap .rose{transform-box:fill-box;transform-origin:center;animation:ap-sway 9s ease-in-out infinite}
-.ap .tmap .rose.r2{animation-duration:12s;animation-direction:reverse}
-.ap .dcard{animation:ap-rise .7s both}
+
+
+
+
+
+
+
+
+
 .ap .dcard:hover{transform:translateY(-3px);transition:transform .3s}
 @media (prefers-reduced-motion:reduce){.ap *,.ap:before{animation:none!important;transition:none!important}}
 /* ===== objects on the desk (shared with the book page) ===== */
@@ -802,9 +802,7 @@ __DM_DELAYS__
 .lb-in svg{display:block;width:100%;height:auto;mix-blend-mode:multiply}
 .lightbox p{color:#cdb382;font-size:13px}
 @media(max-width:760px){.pam{grid-template-columns:1fr;aspect-ratio:auto;rotate:0deg}.pp{transform:none!important}.face{position:relative;font-size:calc(100cqw / 25);padding:7cqw}.face.out{display:none}}
-""".replace("__NOISE__", NOISE).replace("__NP_DELAYS__", "".join(
-    f".ap .np-front>*:nth-child({i}),.ap .np .cols>*:nth-child({i}){{animation-delay:{.5 + i * .09:.2f}s}}" for i in range(1, 20))).replace(
-    "__DM_DELAYS__", "".join(f".ap .tmap .dm:nth-of-type({i}){{animation-delay:{2.2 + i * .14:.2f}s}}" for i in range(1, 10)))
+""".replace("__NOISE__", NOISE)
 
 NAV_ITEMS = [("index.html", "세계관 책", "Liber"), ("news.html", "레큐란 석간", "Gazette"), ("map.html", "관광 안내", "Itinerarium")]
 def shimmer_all(text):
@@ -871,7 +869,7 @@ pg(mono("bk"), "l", "hard", "back")
 assert len(pages_html) % 2 == 0, len(pages_html)
 
 book_tabs = [("cov", "차례", 3)] + [(k, t, CHAP_PAGE[k]) for k, t, e, r in TABS if k in CHAP_PAGE]
-tabs_html = "".join(f'<a class="tab" data-page="{n}" style="top:{8 + i * 9.5:.1f}%">{t}</a>' for i, (k, t, n) in enumerate(book_tabs))
+tabs_html = "".join(f'<button type="button" class="tab" data-page="{n}" style="top:{8 + i * 9.5:.1f}%" aria-label="{t} 장으로 이동">{t}</button>' for i, (k, t, n) in enumerate(book_tabs))
 book_body = "".join(pages_html)
 for k, n in CHAP_PAGE.items():
     book_body = book_body.replace(f"@@{k}@@", str(n)).replace(f"@@n:{k}@@", str(n - 3))
@@ -886,7 +884,7 @@ index_html = (f'<!doctype html>\n<html lang="ko"><head><meta charset="utf-8"><me
               f'<title>아이파베스 · 세계관 책</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="{FONTS}">'
               f'<link rel="stylesheet" href="assets/book.css"></head>\n<body class="desk">'
               f'{{TOPNAV}}<main class="stage"><div class="bookwrap closed"><div class="stack l"></div><div class="stack r"></div>'
-              f'<div id="book">{shimmer_all(book_body)}</div><nav class="tabs">{tabs_html}</nav><i class="ribbon"></i></div>'
+              f'<div id="book">{book_body}</div><nav class="tabs">{tabs_html}</nav><i class="ribbon" aria-hidden="true"></i></div>'
               f'<p class="hint">책장 모서리를 끌거나 눌러서 넘기세요 · <kbd>←</kbd> <kbd>→</kbd></p></main>'
               f'<script src="assets/vendor/page-flip.browser.js"></script><script src="assets/book.js"></script></body></html>\n')
 # ---- newspaper -------------------------------------------------------------------

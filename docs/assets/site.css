@@ -317,18 +317,18 @@ background-image:radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(90,70,4
 .ap .rk svg,.ap .goldrow svg{transition:transform .5s}.ap .rk:hover svg,.ap .goldrow:hover svg{transform:rotate(12deg) scale(1.06)}
 .ap .si,.ap .tb{transition:background .25s,color .25s}
 .ap .np{animation:ap-drop 1.1s cubic-bezier(.2,.7,.2,1) both}
-.ap .np-front>*,.ap .np .cols>*{animation:ap-rise .8s both}
-.ap .np-front>*:nth-child(1),.ap .np .cols>*:nth-child(1){animation-delay:0.59s}.ap .np-front>*:nth-child(2),.ap .np .cols>*:nth-child(2){animation-delay:0.68s}.ap .np-front>*:nth-child(3),.ap .np .cols>*:nth-child(3){animation-delay:0.77s}.ap .np-front>*:nth-child(4),.ap .np .cols>*:nth-child(4){animation-delay:0.86s}.ap .np-front>*:nth-child(5),.ap .np .cols>*:nth-child(5){animation-delay:0.95s}.ap .np-front>*:nth-child(6),.ap .np .cols>*:nth-child(6){animation-delay:1.04s}.ap .np-front>*:nth-child(7),.ap .np .cols>*:nth-child(7){animation-delay:1.13s}.ap .np-front>*:nth-child(8),.ap .np .cols>*:nth-child(8){animation-delay:1.22s}.ap .np-front>*:nth-child(9),.ap .np .cols>*:nth-child(9){animation-delay:1.31s}.ap .np-front>*:nth-child(10),.ap .np .cols>*:nth-child(10){animation-delay:1.40s}.ap .np-front>*:nth-child(11),.ap .np .cols>*:nth-child(11){animation-delay:1.49s}.ap .np-front>*:nth-child(12),.ap .np .cols>*:nth-child(12){animation-delay:1.58s}.ap .np-front>*:nth-child(13),.ap .np .cols>*:nth-child(13){animation-delay:1.67s}.ap .np-front>*:nth-child(14),.ap .np .cols>*:nth-child(14){animation-delay:1.76s}.ap .np-front>*:nth-child(15),.ap .np .cols>*:nth-child(15){animation-delay:1.85s}.ap .np-front>*:nth-child(16),.ap .np .cols>*:nth-child(16){animation-delay:1.94s}.ap .np-front>*:nth-child(17),.ap .np .cols>*:nth-child(17){animation-delay:2.03s}.ap .np-front>*:nth-child(18),.ap .np .cols>*:nth-child(18){animation-delay:2.12s}.ap .np-front>*:nth-child(19),.ap .np .cols>*:nth-child(19){animation-delay:2.21s}
+
+
 .ap .np figure img{transition:filter .6s}.ap .np figure:hover img{filter:grayscale(.3) sepia(.4) contrast(1.05)}
-.ap .tmap .coast{stroke-dasharray:1;animation:ap-draw 3.2s cubic-bezier(.4,.1,.2,1) .4s both}
-.ap .tmap .wl{animation:ap-fade 2.4s 1.6s both}
-.ap .tmap .dm{transform-box:fill-box;transform-origin:center;animation:ap-pop .6s both}
-.ap .tmap .dm:nth-of-type(1){animation-delay:2.34s}.ap .tmap .dm:nth-of-type(2){animation-delay:2.48s}.ap .tmap .dm:nth-of-type(3){animation-delay:2.62s}.ap .tmap .dm:nth-of-type(4){animation-delay:2.76s}.ap .tmap .dm:nth-of-type(5){animation-delay:2.90s}.ap .tmap .dm:nth-of-type(6){animation-delay:3.04s}.ap .tmap .dm:nth-of-type(7){animation-delay:3.18s}.ap .tmap .dm:nth-of-type(8){animation-delay:3.32s}.ap .tmap .dm:nth-of-type(9){animation-delay:3.46s}
-.ap .tmap .fog{animation:ap-drift 7s ease-in-out infinite alternate}
-.ap .tmap .beam{animation:ap-beam 2.6s ease-in-out infinite}
-.ap .tmap .rose{transform-box:fill-box;transform-origin:center;animation:ap-sway 9s ease-in-out infinite}
-.ap .tmap .rose.r2{animation-duration:12s;animation-direction:reverse}
-.ap .dcard{animation:ap-rise .7s both}
+
+
+
+
+
+
+
+
+
 .ap .dcard:hover{transform:translateY(-3px);transition:transform .3s}
 @media (prefers-reduced-motion:reduce){.ap *,.ap:before{animation:none!important;transition:none!important}}
 /* ===== objects on the desk (shared with the book page) ===== */

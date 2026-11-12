@@ -3,29 +3,28 @@
    All page sizes are in cqw (page width) so the layout is identical at any screen size. */
 
 html,body{margin:0;height:100%}
+body.desk{min-width:1180px}
 body.desk{min-height:100vh;overflow-x:hidden;color:#e9d6ac;font-family:'Gowun Batang',serif;
   background:#2a1a10 url(tex/desk.jpg) center/900px repeat}
 body.desk:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse 70% 60% at 38% 28%,rgba(255,196,120,.22),transparent 60%),
              radial-gradient(ellipse at 50% 50%,transparent 35%,rgba(10,5,2,.78) 100%)}
-body.desk:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 60% 50% at 38% 28%,rgba(255,200,130,.08),transparent 70%);animation:lamp 6s infinite}
-@keyframes lamp{0%,100%{opacity:.85}45%{opacity:1}50%{opacity:.78}55%{opacity:.95}}
 body.desk>*{position:relative;z-index:1}
 
 /* top navigation: quiet engraved text, no buttons */
-.topnav{display:flex;justify-content:center;gap:2.4em;padding:18px 10px 0;font-size:15px;letter-spacing:.08em}
+.topnav{display:flex;justify-content:center;gap:2.4em;padding:10px 10px 0;font-size:15px;letter-spacing:.08em}
 .topnav a{color:#cdb382;text-decoration:none;padding-bottom:3px;border-bottom:1px solid transparent;text-shadow:0 1px 2px #000}
 .topnav a.on{color:#f3dc97;border-bottom-color:#c9a24b}
 .topnav a:hover{color:#f6e2a6}
 .topnav .la{font-family:'IM Fell English',serif;font-style:italic;font-size:.82em;opacity:.7;margin-left:.4em}
 
-.stage{display:flex;flex-direction:column;align-items:center;padding:26px 0 30px}
-.bookwrap{position:relative;width:min(1180px,92vw,calc((100vh - 150px) * 1.436));margin:0 auto;transition:transform .9s cubic-bezier(.3,.6,.2,1)}
+.stage{display:flex;flex-direction:column;align-items:center;padding:14px 0 24px}
+.bookwrap{position:relative;width:max(1040px,min(1180px,90vw,calc((100vh - 96px) * 1.436)));margin:0 auto;transition:transform .9s cubic-bezier(.3,.6,.2,1)}
 .bookwrap.closed{transform:translateX(-25%)}.bookwrap.closed-back{transform:translateX(25%)}
 .bookwrap.closed .stack,.bookwrap.closed-back .stack{opacity:0}
 .bookwrap.closed-back .tab{opacity:0;pointer-events:none}
 #book{margin:0 auto}
-.hint{text-align:center;font-size:13px;color:#a98c58;margin:62px 0 0;letter-spacing:.06em;text-shadow:0 1px 2px #000}
+.hint{text-align:center;font-size:13px;color:#a98c58;margin:54px 0 0;letter-spacing:.06em;text-shadow:0 1px 2px #000}
 .hint kbd{font-family:'IM Fell English SC',serif;border:1px solid #6b4a2a;padding:0 .4em;border-radius:3px}
 
 /* page stacks (edges of the remaining leaves) */
@@ -37,8 +36,7 @@ body.desk>*{position:relative;z-index:1}
 /* silk ribbon bookmark from the spine */
 .ribbon{position:absolute;left:calc(50% - 7px);bottom:-46px;width:14px;height:64px;z-index:-1;transform-origin:top center;
   background:linear-gradient(90deg,#5a1410,#9c2b20 45%,#c4493a 55%,#7a1d16);clip-path:polygon(0 0,100% 0,100% 100%,50% 82%,0 100%);
-  animation:sway 5s ease-in-out infinite;filter:drop-shadow(0 3px 3px rgba(0,0,0,.6))}
-@keyframes sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+  filter:drop-shadow(0 3px 3px rgba(0,0,0,.6))}
 .bookwrap.closed .ribbon{left:calc(50% + 6px)}
 
 /* index tabs sticking out of the page edge */
@@ -49,7 +47,9 @@ body.desk>*{position:relative;z-index:1}
   background:#c9b07a url(tex/kraft.jpg) center/300px;background-blend-mode:multiply;
   border-radius:0 5px 5px 0;box-shadow:2px 2px 4px rgba(0,0,0,.55),inset -1px 0 0 rgba(255,255,255,.25);
   transition:right .6s ease,left .6s ease,transform .25s,filter .25s;z-index:0}
+.tab{border:0;margin:0;font-weight:400;text-align:inherit}
 .tab:nth-child(odd){background-color:#b8956a}
+.tab:focus-visible,.toc a:focus-visible,.topnav a:focus-visible,.hint a:focus-visible{outline:2px solid #e6c97c;outline-offset:3px}
 .tab:hover{transform:translateX(4px);filter:brightness(1.08)}
 .tab.on{filter:brightness(1.15);font-weight:700}
 .tab.passed{right:auto;left:-56px;justify-content:flex-start;padding:0 0 0 9px;border-radius:5px 0 0 5px}
@@ -72,7 +72,7 @@ body.desk>*{position:relative;z-index:1}
 .la{font-family:'IM Fell English',serif;font-style:italic}
 .sc{font-family:'IM Fell English SC',serif;letter-spacing:.16em}
 
-.rh{position:absolute!important;top:5cqw;font-family:'IM Fell English',serif;font-style:italic;font-size:.74em;color:#7a5f3e}
+.rh{position:absolute!important;top:5cqw;font-family:'IM Fell English',serif;font-style:italic;font-size:.86em;color:#7a5f3e}
 .l .rh{left:8.5cqw}.r .rh{right:8.5cqw}
 .fo{position:absolute!important;bottom:5cqw;left:0;right:0;text-align:center;font-family:'IM Fell English',serif;font-size:.8em;letter-spacing:.14em;color:#7a5f3e}
 
@@ -209,11 +209,9 @@ table.tar{width:100%;border-collapse:collapse;font-size:.74em;line-height:1.4}
 .colophon ul li{padding:.15em 0}
 
 /* entrance animations inside freshly shown pages */
-.page .pc>*{animation:ink .9s ease both}
-@keyframes ink{from{opacity:0;filter:blur(1.5px)}to{opacity:1;filter:none}}
 .dial .needle{animation:swing 2.4s cubic-bezier(.15,.85,.25,1) .4s both}
 @keyframes swing{from{transform:rotate(-220deg)}to{transform:rotate(0)}}
-@media (prefers-reduced-motion:reduce){*,body.desk:after{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
 /* overflow check mode (?check): pages laid flat at design size */
 body.check #book{display:grid;grid-template-columns:repeat(4,560px);gap:10px;width:auto}
