@@ -396,7 +396,7 @@ def plate(key, title, cls="", alt=""):
     year = re.match(r"\D*(\d{4})", s["date"] or "")
     year = year.group(1) if year else ("1867" if "Idylls" in s["title"] else "")
     return (f'<figure class="plate {cls}"><div class="im"><img src="{img_url(key)}" alt="{alt or title}" loading="lazy"></div>'
-            f'<figcaption><span class="sc">Pl. {ROMAN[plate_no[0]]}</span><span>{title}<small>{artist}{", " + year if year else ""} · Public Domain</small></span></figcaption></figure>')
+            f'<figcaption><span class="sc">Pl. {ROMAN[plate_no[0]]}</span><span>{title} <sup class="cite">[{REF_NO[key]}]</sup></span></figcaption></figure>')
 
 
 def ticket_html():
@@ -435,6 +435,43 @@ def ticket_html():
         '<div class="tk-br"><span>No. 2086 <b>|</b> XCV · XVIII</span><small>Present at the platform</small></div>'
         '<div class="tk-stub"><i>Admit One</i><span>Single Passage · No. 2086</span></div>'
         + stamp + '</div><figcaption>부록 · 차원열차 승차권 견본 — 인간계(Mortalia)행</figcaption></figure>')
+
+
+# References (bibliography at the end of the book) ------------------------------------
+# Book images in order of appearance; numbers are cited in captions as [n].
+REF_BOOK = ["gate", "library", "el_ignis", "el_aqua", "el_terra", "el_aer", "harbour", "wreath",
+            "scholar", "coin", "cat_heaven", "cat_hell", "lighthouse", "tower"]
+REF_SITE = ["np_square", "np_station", "np_reading", "np_alley", "pm_street", "pm_books", "pm_inn", "pm_fish"]
+REF_META = {
+    "gate":       ("Gustave Doré", "『왕의 목가(Idylls of the King)』 삽화", "1867", "Wikimedia Commons", "퍼블릭 도메인"),
+    "library":    ("John Chessell Buckler", "「보들리언 도서관(The Bodleian Library)」", "19세기", "Houghton Library MS Hyde 76, Wikimedia Commons", "퍼블릭 도메인"),
+    "el_ignis":   ("작자 미상", "「불(Ignis)」, 4원소 연작", "1606", "Rijksmuseum RP-P-1904-20", "CC0"),
+    "el_aqua":    ("작자 미상", "「물(Aqua)」, 4원소 연작", "1606", "Rijksmuseum RP-P-1904-19", "CC0"),
+    "el_terra":   ("작자 미상", "「흙(Terra)」, 4원소 연작", "1606–1610", "Rijksmuseum RP-P-1904-21", "CC0"),
+    "el_aer":     ("작자 미상", "「바람(Aer)」, 4원소 연작", "1606", "Rijksmuseum RP-P-1904-22", "CC0"),
+    "harbour":    ("William Miller (Edward Swinburne 원화)", "「실즈 항구(Shields Harbour)」", "1827", "Wikimedia Commons", "퍼블릭 도메인"),
+    "wreath":     ("William Harry Rogers", "「월계관과 펜(Wreath and Pen)」", "1859", "Wikimedia Commons", "퍼블릭 도메인"),
+    "scholar":    ("Gustave Doré", "『왕의 목가(Idylls of the King)』 삽화", "1867", "Wikimedia Commons", "퍼블릭 도메인"),
+    "coin":       ("Herman Moll", "로마 주화 판화", "", "Wikimedia Commons", "퍼블릭 도메인"),
+    "cat_heaven": ("Gustave Doré", "『신곡』 천국편 31곡 삽화", "19세기", "Wikimedia Commons", "퍼블릭 도메인"),
+    "cat_hell":   ("Gustave Doré", "『신곡』 지옥편 5곡 「미노스」", "", "Wikimedia Commons", "퍼블릭 도메인"),
+    "lighthouse": ("Henry Winkles (J. H. Sander 원화)", "「노이베르크 섬(Insel Neuwerk)」", "1840년경", "Wikimedia Commons", "퍼블릭 도메인"),
+    "tower":      ("Gustave Doré", "『왕의 목가(Idylls of the King)』 삽화", "1867", "Wikimedia Commons", "퍼블릭 도메인"),
+    "np_square":  ("Eduard Hüllverding", "「브라쇼브 시청 광장」", "1848", "Wikimedia Commons", "퍼블릭 도메인"),
+    "np_station": ("John Cooke Bourne", "「브리스톨 템플 미즈 역」", "1843년경", "Wikimedia Commons", "퍼블릭 도메인"),
+    "np_reading": ("작자 미상", "「대영박물관 열람실」", "1859", "Library of Congress, Wikimedia Commons", "퍼블릭 도메인"),
+    "np_alley":   ("Gustave Doré", "『런던 순례(London, a Pilgrimage)』 삽화", "1872", "Wikimedia Commons", "퍼블릭 도메인"),
+    "pm_street":  ("작자 미상", "『The Argosy』 수록 판화", "1865", "Internet Archive Book Images, Wikimedia Commons", "저작권 제한 없음"),
+    "pm_books":   ("작자 미상", "「서점(Buchhandlung)」", "1732", "Wikimedia Commons", "퍼블릭 도메인"),
+    "pm_inn":     ("작자 미상", "「플랑드르 여관의 안뜰」", "1842", "Rijksmuseum RP-P-1884-A-8105", "CC0"),
+    "pm_fish":    ("Theo. R. Davis", "「풀턴 어시장」", "1869년경", "Wikimedia Commons", "퍼블릭 도메인"),
+}
+REF_NO = {k: i + 1 for i, k in enumerate(REF_BOOK)}
+def ref_entry(n, key, where=""):
+    a, w, y, h, lic = REF_META[key]
+    yr = f", {y}" if y else ""
+    at = f" <i>{where}</i>" if where else ""
+    return f'<li><b>[{n}]</b> {a}. {w}{yr}. {h}. {lic}.{at}</li>'
 
 SPREADS = []
 def spread(left, right, lh="Aiphabess", rh_l="", fol=(0, 0), lcls="", rcls="", sid=""):
@@ -492,7 +529,7 @@ els = [("el_ignis", "불", "Ignis · Aestas", "여름의 여신", "열정과 소
 el_r = ('<div class="els">' + "".join(
             f'<figure class="el"><div class="eim"><img src="{img_url(k)}" alt="{c}의 의인화 판화" loading="lazy"></div>'
             f'<figcaption><b>{c}</b><span class="la">{l}</span><p class="gd">{g}</p><p class="kw">{w}</p></figcaption></figure>' for k, c, l, g, w in els) + '</div>'
-        '<p class="elcred">판화: 「4원소」 연작, 1606 · Rijksmuseum (CC0)</p>')
+        '<p class="elcred">「4원소」 연작, 1606 <sup class="cite">[3–6]</sup></p>')
 H.append(('el', spread(el_l, el_r, rh_l="The Four Scholars", fol=(6, 7), sid="el")))
 
 # school -------------------------------------------------------------------------
@@ -555,7 +592,7 @@ wld2_l = ('<h3 style="font-size:22px;margin-top:8px">천마계 통판북</h3>'
           '<ul><li>검은 깃털 펜 또는 검은 볼펜으로 서명</li><li>장난용·위험 물품 포함</li></ul>'
           '<div class="warn">18세 미만 이용 불가</div><div class="sig">서명</div></div></figure>'
           '</div>'
-          '<p class="catcred">표지 판화: Gustave Doré, 『신곡』 천국편 31곡 · 지옥편 5곡</p>')
+          '<p class="catcred">표지 판화 <sup class="cite">[11, 12]</sup></p>')
 wld2_r = plate("lighthouse", "포구의 등대", "crop wide", "폭풍 치는 해안에 선 등대") + ticket_html()
 H.append(('wld', spread(wld1_l, wld1_r, rh_l="Worlds", fol=(14, 15), sid="wld") + spread(wld2_l, wld2_r, rh_l="Worlds", fol=(16, 17))))
 
@@ -881,11 +918,31 @@ for sp in BOOK_SPREADS:
     pg(sp["left"], "l", rh=sp["rh_l"], fo=len(pages_html) - 3)
     pg(sp["right"], "r", rh=sp["lh"], fo=len(pages_html) - 3)
 pg(f'<span class="cap">Musica</span><h2>마학 BGM</h2><div class="orn"></div><div class="bgm">{BGM}</div>', "l", rh="Musica")
-src_items = "".join(f'<li>{(v["artist"] or "Gustave Doré").split(" / ")[0]} — <a href="{v["page"]}">{v["title"].replace("File:", "")}</a></li>' for v in SRC.values())
+def used_on(key):
+    """Folio numbers of the pages that show this image (book pages start at folio 2 = index 5)."""
+    pages = [str(i - 3) for i, h in enumerate(pages_html) if img_url(key) in h]
+    return ("p. " + ", ".join(pages)) if pages else ""
+REF_START = len(pages_html)
+refs1 = ("<ol class=\"refs\">" + "".join(ref_entry(REF_NO[k], k, used_on(k)) for k in REF_BOOK) + "</ol>")
+n0 = len(REF_BOOK)
+refs2 = ("<h4>레큐란 석간 · 관광 안내에 실린 판화</h4><ol class=\"refs\">" +
+         "".join(ref_entry(n0 + i + 1, k) for i, k in enumerate(REF_SITE)) + "</ol>"
+         "<h4>질감 · 글꼴 · 프로그램</h4><ol class=\"refs\">"
+         f"<li><b>[{n0 + len(REF_SITE) + 1}]</b> Poly Haven. 「Brown Leather」, 「Wood Table Worn」 질감 사진. polyhaven.com. CC0.</li>"
+         f"<li><b>[{n0 + len(REF_SITE) + 2}]</b> ambientCG. 「Paper 001」, 「Paper 003」, 「Paper 006」 질감 사진. ambientcg.com. CC0.</li>"
+         f"<li><b>[{n0 + len(REF_SITE) + 3}]</b> Google Fonts. Song Myung, Gowun Batang, Diphylleia, Hahmlet, IM Fell English. SIL Open Font License 1.1.</li>"
+         f"<li><b>[{n0 + len(REF_SITE) + 4}]</b> DearHive. DearFlip Lite 1.7 (3D 책장 넘김). CC BY-NC-ND 4.0, 비영리 개인 사용.</li>"
+         f"<li><b>[{n0 + len(REF_SITE) + 5}]</b> Nodlik. StPageFlip 2.0.7 (책 원본의 책장 넘김). MIT License.</li>"
+         "</ol>")
+pg('<span class="cap">References</span><h2>참고 출처</h2><div class="orn"></div>'
+   '<p class="refnote">본문의 대괄호 번호는 아래 출처를 가리킨다. 판화는 모두 Wikimedia Commons를 통해 받았다.</p>'
+   '<h4>세계관 책에 실린 판화</h4>' + refs1, "r", rh="References")
+pg(refs2, "l", rh="References")
 pg('<div class="colophon"><span class="cap">Colophon</span><h3>판권</h3>'
-   '<p>삽화는 모두 퍼블릭 도메인 판화입니다 (Wikimedia Commons).</p><ul>' + src_items + '</ul>'
-   '<p style="margin-top:.8em">가죽·종이·책상 질감: Poly Haven, ambientCG (CC0). 책장 넘김: DearFlip Lite (CC BY-NC-ND 4.0, 비영리 개인 사용).<br>'
-   '글꼴: Song Myung, Gowun Batang, Diphylleia, Hahmlet, IM Fell English (SIL OFL).</p></div>', "r", rh="Colophon")
+   '<p class="colo-t">아이파베스 · 세계관 책</p>'
+   '<p>레큐란 대륙 남쪽, 삼면이 바다인 반도 위의 대도시 아이파베스와 그 학교를 소개한다.</p>'
+   '<p>아이파베스 대도서관 간행 · 95회전 18번째 달</p>'
+   '<p class="colo-n">이 책은 비영리 개인 팬 프로젝트다. 도판과 자료의 출처는 앞의 참고 출처에 있다.</p></div>', "r", rh="Colophon")
 pg(mono("bk"), "l", "hard", "back")
 assert len(pages_html) % 2 == 0, len(pages_html)
 
@@ -977,7 +1034,7 @@ n1 = len(index_html)
 N_PAGES = len(pages_html)
 outline = [{"title": "차례", "dest": 4}] + [
     {"title": t, "dest": CHAP_PAGE[k] + 1} for k, t, e, r in TABS if k in CHAP_PAGE] + [
-    {"title": "마학 BGM", "dest": N_PAGES - 2}, {"title": "판권", "dest": N_PAGES - 1}]
+    {"title": "마학 BGM", "dest": REF_START}, {"title": "참고 출처", "dest": REF_START + 1}, {"title": "판권", "dest": REF_START + 3}]
 book3d_html = (
     '<!doctype html>\n<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
     f'<title>아이파베스 · 세계관 책</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="{FONTS}">'

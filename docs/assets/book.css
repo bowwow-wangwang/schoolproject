@@ -322,3 +322,16 @@ body.render .page.soft:after{background:radial-gradient(ellipse at 50% 50%,trans
 .catcred{text-align:right;font-family:'IM Fell English',serif;font-style:italic;font-size:.66em;color:#7a5f3e;margin-top:.3em}
 .colophon ul{columns:2;column-gap:1.4em;font-size:.9em}.colophon ul li{break-inside:avoid}
 body.render .bookwrap,body.render .bookwrap.closed,body.render .bookwrap.closed-back{transform:none!important;transition:none!important}
+
+/* ===== references (bibliography) & colophon ===== */
+sup.cite{font-family:'IM Fell English',serif;font-size:.78em;color:#7a5f3e;vertical-align:.35em;margin-left:.1em}
+.plate figcaption sup.cite{font-size:.9em}
+.refnote{font-size:.78em;color:#6b4a2a;margin:-.4em 0 .3em}
+.pc h4{margin:.9em 0 .35em;font-family:'Song Myung',serif;font-weight:400;font-size:.98em;border-bottom:1px solid rgba(43,31,20,.4);padding-bottom:.15em}
+.refs{font-size:.7em;line-height:1.5;color:#3d2c1c}
+.refs li{position:relative;padding-left:2.4em;margin:0 0 .3em}
+.refs li b{position:absolute;left:0;top:0;font-family:'IM Fell English',serif;font-weight:400;color:#7a4e1c}
+.refs li i{font-style:italic;font-family:'IM Fell English',serif;color:#7a5f3e;white-space:nowrap}
+.colophon{display:flex;flex-direction:column;justify-content:flex-end;min-height:85%;font-size:.86em}
+.colophon .colo-t{font-family:'Song Myung',serif;font-size:1.25em;margin:.6em 0 .2em}
+.colophon .colo-n{margin-top:1.2em;padding-top:.7em;border-top:1px solid rgba(43,31,20,.4);font-size:.9em;color:#6b4a2a}

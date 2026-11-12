@@ -27,6 +27,7 @@
 - 지형: 북쪽만 대륙에 이어지고 동·서·남이 바다인 **반도** (대한민국처럼)
 - 인간계 영문 고유명칭: **Mortalia** (한글 본문은 "인간계" 유지) → `worldbuilding/용어집.md`
 - 폰트(전부 세리프): 제목 Song Myung / 본문 Gowun Batang / 인용·첫 문장 Diphylleia / 신문 헤드라인 Hahmlet / 라틴 IM Fell English
+- 출처 표기: 본문 그림에는 [n] 번호만, 책 끝 "참고 출처" 2쪽에 논문식 목록 (build_site.py의 REF_BOOK/REF_SITE/REF_META). 새 그림을 넣으면 여기에도 추가
 - 이미지: 퍼블릭도메인 판화 14점, **사이트 전체에서 같은 그림 두 번 쓰지 않기**. 출처 `images/_sources.json`
 - 질감: CC0 사진 (Poly Haven, ambientCG) → `docs/assets/tex`
 
