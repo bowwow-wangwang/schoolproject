@@ -321,3 +321,4 @@ body.render .page.soft:after{background:radial-gradient(ellipse at 50% 50%,trans
 .cbk.hell .warn{margin-top:.6em;padding:.25em 0;text-align:center;background:#8d2a1d;color:#f6e7d2;font-family:'Hahmlet',serif;font-weight:700;letter-spacing:.08em;font-size:.95em}
 .catcred{text-align:right;font-family:'IM Fell English',serif;font-style:italic;font-size:.66em;color:#7a5f3e;margin-top:.3em}
 .colophon ul{columns:2;column-gap:1.4em;font-size:.9em}.colophon ul li{break-inside:avoid}
+body.render .bookwrap,body.render .bookwrap.closed,body.render .bookwrap.closed-back{transform:none!important;transition:none!important}
