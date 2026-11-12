@@ -5,6 +5,14 @@
   var pages = book.querySelectorAll('.page');
   var total = pages.length;
 
+  // ?render=N : show page N alone at design size (used to photograph pages for the 3D book)
+  var rm = /[?&]render=(\d+)/.exec(location.search);
+  if (rm) {
+    document.body.classList.add('render');
+    pages.forEach(function (p, i) { p.classList.toggle('show', i === +rm[1]); });
+    return;
+  }
+
   // ?check : lay pages flat and flag any page whose content overflows (used by the build check)
   if (/[?&]check/.test(location.search)) {
     document.body.classList.add('check');

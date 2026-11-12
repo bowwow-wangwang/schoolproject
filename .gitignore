@@ -4,3 +4,4 @@ __pycache__/
 Thumbs.db
 Desktop.ini
 .vscode/
+build/.render_tmp/

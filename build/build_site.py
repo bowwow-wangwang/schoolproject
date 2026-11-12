@@ -19,6 +19,11 @@ def strip_svg(s):
 
 LOGO_GILT = strip_svg(rd("logo/mark_b2_gilt.svg"))
 LOGO_MONO = strip_svg(rd("logo/mark_b2_mono.svg"))
+MG_GILT = strip_svg(rd("logo/monogram_gilt.svg"))
+MG_MONO = strip_svg(rd("logo/monogram_mono.svg"))
+def monogram(prefix, variant="gilt", cls=""):
+    s = (MG_GILT if variant == "gilt" else MG_MONO).replace("mg-", prefix + "-")
+    return s.replace("<svg ", f'<svg class="{cls}" ', 1)
 
 def logo(prefix, variant="gilt", cls=""):
     s = LOGO_GILT if variant == "gilt" else LOGO_MONO
@@ -478,13 +483,16 @@ H.append(('pro', spread(pro1_l, pro1_r, rh_l="Prologue", fol=(2, 3), sid="pro") 
 # elements -----------------------------------------------------------------------
 el_l = (head("Caput III · The Four Scholars", "네 명의 학자, 네 명의 여신") +
         '<p>불·물·땅·바람을 연구한 네 명의 학자들은 각자의 원소 너머에 있는 것들을 탐구했다. 원소마다 사계절의 여신 한 명이 이어져 있다.</p>'
-        '<p>학자들이 여신들로부터 직접 가르침을 받았는지, 그 흔적을 스스로 따라갔는지는 지금도 아무도 모른다. 학교 어딘가에는 <b>각 여신의 가호가 깃든 책 네 권</b>이 숨겨져 있다는 소문만 남아 있다.</p>')
-els = [("fire", "불", "Ignis · Aestas", "여름의 여신", "열정과 소멸 뒤의 재생"),
-       ("water", "물", "Aqua · Hiems", "겨울의 여신", "정화와 고요한 깊이"),
-       ("earth", "땅", "Terra · Ver", "봄의 여신", "탄생과 뿌리의 성장"),
-       ("air", "바람", "Ventus · Autumnus", "가을의 여신", "변화와 이별의 전달")]
-el_r = (plate("library", "로비의 책장", "crop wide", "높은 서가가 늘어선 도서관 내부") +
-        '<div class="els">' + "".join(f'<div class="el">{alch(k)}<b>{c}</b><span class="la">{l}</span><p class="gd">{g}</p><p class="kw">{w}</p></div>' for k, c, l, g, w in els) + '</div>')
+        '<p>학자들이 여신들로부터 직접 가르침을 받았는지, 그 흔적을 스스로 따라갔는지는 지금도 아무도 모른다. 학교 어딘가에는 <b>각 여신의 가호가 깃든 책 네 권</b>이 숨겨져 있다는 소문만 남아 있다.</p>'
+        + plate("library", "로비의 책장", "crop wide", "높은 서가가 늘어선 도서관 내부"))
+els = [("el_ignis", "불", "Ignis · Aestas", "여름의 여신", "열정과 소멸 뒤의 재생"),
+       ("el_aqua", "물", "Aqua · Hiems", "겨울의 여신", "정화와 고요한 깊이"),
+       ("el_terra", "땅", "Terra · Ver", "봄의 여신", "탄생과 뿌리의 성장"),
+       ("el_aer", "바람", "Ventus · Autumnus", "가을의 여신", "변화와 이별의 전달")]
+el_r = ('<div class="els">' + "".join(
+            f'<figure class="el"><div class="eim"><img src="{img_url(k)}" alt="{c}의 의인화 판화" loading="lazy"></div>'
+            f'<figcaption><b>{c}</b><span class="la">{l}</span><p class="gd">{g}</p><p class="kw">{w}</p></figcaption></figure>' for k, c, l, g, w in els) + '</div>'
+        '<p class="elcred">판화: 「4원소」 연작, 1606 · Rijksmuseum (CC0)</p>')
 H.append(('el', spread(el_l, el_r, rh_l="The Four Scholars", fol=(6, 7), sid="el")))
 
 # school -------------------------------------------------------------------------
@@ -516,9 +524,10 @@ mag_l = (head("Caput V · Magic &amp; Rank", "마력과 마법사") +
 mag_r = ('<h3 style="font-size:22px;margin-top:8px">마법사 등급과 졸업 후 진로</h3>'
          '<p>졸업과 동시에 마법사 등급이 부여되며, 등급은 졸업 방식에 따라 달라진다.</p>'
          '<div class="ranks">'
-         f'<div class="rk">{medallion("m1", "1급", "PRIMA")}<div><b>마스터 반 · 그랑프리 우승</b><p>1급 마법사로 즉시 진급한다.</p></div></div>'
-         f'<div class="rk">{medallion("m2", "2·3급", "SECUNDA")}<div><b>그 외의 조건으로 졸업</b><p>2급 또는 3급을 받고, 1급 시험 응시 자격이 함께 주어진다.</p></div></div>'
-         '</div><div style="margin-top:24px">' + plate("scholar", "숲속의 노학자", "crop wide", "숲속에서 책을 펼쳐 든 노학자") + '</div>')
+         f'<div class="wreath"><img src="{img_url("wreath")}" alt="월계관과 펜 판화" loading="lazy"></div>'
+         '<div class="rk"><span class="rn1">I</span><div><b>마스터 반 · 그랑프리 우승</b><p>1급 마법사로 즉시 진급한다.</p></div></div>'
+         '<div class="rk"><span class="rn1">II<small>·</small>III</span><div><b>그 외의 조건으로 졸업</b><p>2급 또는 3급을 받고, 1급 시험 응시 자격이 함께 주어진다.</p></div></div>'
+         '</div><div style="margin-top:24px">' + plate("scholar", "숲속의 노학자", "crop wide flat", "숲속에서 책을 펼쳐 든 노학자") + '</div>')
 H.append(('mag', spread(mag_l, mag_r, rh_l="Magic &amp; Rank", fol=(12, 13), sid="mag")))
 
 # worlds -------------------------------------------------------------------------
@@ -530,7 +539,7 @@ wld1_r = ('<div class="trio" style="margin-top:8px">'
           '<div><h3>인간계 방문</h3><p>마법사가 인간계를 찾을 때는 인간의 향수를 쓴다. 뿌리면 인간들에게 평범한 인간으로 인식된다. 종류가 다양하며 주로 정령이 제조하고, 향이 은은하고 좋을수록 비싸다.</p></div>'
           '<div><h3>수호자</h3><p>소환자와 소환자의 마을, 집, 교실 등을 지키는 사명을 띠고 소환되는 존재. 동양의 성주신과 비슷하며 형태는 다양하다. 염원이 강할수록 더 강한 수호자를 소환하거나 만들어낼 수 있다. 이름이 부여된 수호자는 천사와 악마를 제외하면 극히 드물다.</p></div>'
           '<div><h3>골드</h3><p>공식 워프존으로 인간계에 가면 보유한 골드가 그 나라의 화폐로 자동 환전된다. 이 점을 이용해 환율 차익을 노리는 주식 마법사들도 적지 않다.</p></div></div>'
-          f'<div class="goldrow">{coin()}<div><b>100골드 = 약 10,000원</b><span>한화 기준 환산</span></div></div>')
+          f'<div class="goldrow"><img class="coinimg" src="{img_url("coin")}" alt="옛 주화 판화"><div><b>100골드 = 약 10,000원</b><span>한화 기준 환산</span></div></div>')
 wld2_l = ('<h3 style="font-size:22px;margin-top:8px">천마계 통판북</h3>'
           '<p>천계와 마계의 물품을 정리한 카탈로그. 주 이용 연령층은 22세에서 80세까지다. 서명이 끝나면 보유 금액에서 자동으로 차감되고 5초 안에 배달된다.</p>'
           '<div class="cat"><div class="l"><h3>천계 상품</h3><p>흰 종이에 단정한 서체로 인쇄되어 있다. 흰 깃털 펜으로 서명한다.</p></div>'
@@ -844,8 +853,8 @@ def pg(content, side, kind="soft", extra="", rh="", fo=""):
     fos = f'<span class="fo">— {fo} —</span>' if fo != "" else ""
     pages_html.append(f'<div class="page {kind} {side} {extra}"{dens}><div class="pc">{rhs}{content}{fos}</div></div>')
 
-mono = lambda pfx: logo(pfx, "mono")
-pg(f'{logo("cv", "gilt", "mark")}<h1 class="gold">아이파베스</h1><p class="sc gold">AIPHABESS</p><p class="la gold">School of All Origins</p>'
+mono = lambda pfx: monogram(pfx, "mono")
+pg(f'{monogram("cv", "gilt", "mark")}<h1 class="gold">아이파베스</h1><p class="sc gold">AIPHABESS</p><p class="la gold">School of All Origins</p>'
    '<div class="rule"></div><small class="gold">Recuran · Anno XCV</small>', "r", "hard", "cover")
 pg(f'<div class="exlibris"><span class="sc">Ex Libris</span>{mono("ex")}<p>아이파베스 대도서관 소장<br>함부로 지하 서고에 들고 내려가지 말 것</p></div>', "l", "soft", "endpaper")
 pg(f'{mono("tt")}<h1>아이파베스</h1><p class="sc">AIPHABESS</p><p class="la">School of All Origins</p><div class="orn c" style="width:60%"></div>'
@@ -863,7 +872,7 @@ pg(f'<span class="cap">Musica</span><h2>마학 BGM</h2><div class="orn"></div><d
 src_items = "".join(f'<li>{(v["artist"] or "Gustave Doré").split(" / ")[0]} — <a href="{v["page"]}">{v["title"].replace("File:", "")}</a></li>' for v in SRC.values())
 pg('<div class="colophon"><span class="cap">Colophon</span><h3>판권</h3>'
    '<p>삽화는 모두 퍼블릭 도메인 판화입니다 (Wikimedia Commons).</p><ul>' + src_items + '</ul>'
-   '<p style="margin-top:.8em">가죽·종이·책상 질감: Poly Haven, ambientCG (CC0). 책장 넘김: StPageFlip (MIT).<br>'
+   '<p style="margin-top:.8em">가죽·종이·책상 질감: Poly Haven, ambientCG (CC0). 책장 넘김: DearFlip Lite (CC BY-NC-ND 4.0, 비영리 개인 사용).<br>'
    '글꼴: Song Myung, Gowun Batang, Diphylleia, Hahmlet, IM Fell English (SIL OFL).</p></div>', "r", rh="Colophon")
 pg(mono("bk"), "l", "hard", "back")
 assert len(pages_html) % 2 == 0, len(pages_html)
@@ -946,8 +955,47 @@ news = f'''<div class="np">
 <div class="np-foot">이 신문은 아이파베스 세계관을 소개하기 위한 견본호입니다. 실제 발행 일정은 없습니다.</div>
 </div>'''
 index_html = index_html.replace('{TOPNAV}', topnav('index.html'))
-open(os.path.join(SITE, 'index.html'), 'w', encoding='utf-8').write(index_html)
+# source pages for build/render_pages.py (not linked from the site)
+open(os.path.join(SITE, 'book-source.html'), 'w', encoding='utf-8').write(index_html)
 n1 = len(index_html)
+
+# ---- 3D book (DearFlip lite, CC BY-NC-ND 4.0) -----------------------------------
+# Page images come from photographing index.html?render=N (see README). The library
+# files under docs/assets/vendor/dflip are copied unmodified, as the licence requires.
+N_PAGES = len(pages_html)
+outline = [{"title": "차례", "dest": 4}] + [
+    {"title": t, "dest": CHAP_PAGE[k] + 1} for k, t, e, r in TABS if k in CHAP_PAGE] + [
+    {"title": "마학 BGM", "dest": N_PAGES - 2}, {"title": "판권", "dest": N_PAGES - 1}]
+book3d_html = (
+    '<!doctype html>\n<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    f'<title>아이파베스 · 세계관 책</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="{FONTS}">'
+    '<link rel="stylesheet" href="assets/vendor/dflip/css/dflip.min.css"><link rel="stylesheet" href="assets/vendor/dflip/css/themify-icons.min.css">'
+    '<link rel="stylesheet" href="assets/book.css"><style>'
+    '#flip3d{width:100%;margin:0 auto}'
+    '.df-container{background:transparent!important}'
+    '.df-ui-controls,.df-ui-controls .df-ui-btn,.df-ui-wrapper{background:rgba(32,20,12,.86)!important;color:#e6c97c!important;border:0!important;box-shadow:none!important}'
+    '.df-ui-controls{border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.5)!important}.df-ui-btn:hover{color:#fff1c0!important}'
+    '.df-ui-page,.df-ui-page *{color:#cdb382!important;background:transparent!important}'
+    '.df-outline-container{background:#efe2c4!important;color:#2b1f14!important;font-family:"Song Myung",serif}'
+    '.df-outline-container a{color:#2b1f14!important}'
+    '.credit3d{position:fixed;right:14px;bottom:8px;margin:0;font-size:11px;color:#8f7a55;text-shadow:0 1px 2px #000;z-index:5}.credit3d a{color:#cdb382}'
+    '</style></head>\n<body class="desk">{TOPNAV}<main><div id="flip3d"></div>'
+    '<p class="credit3d">책장 넘김: <a href="https://github.com/dearhive/dearflip-js-flipbook">DearFlip Lite</a> by DearHive '
+    '(<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>, 비영리 개인 사용)</p></main>'
+    '<script>var dFlipLocation="assets/vendor/dflip/";</script>'
+    '<script src="assets/vendor/dflip/js/libs/jquery.min.js"></script><script src="assets/vendor/dflip/js/dflip.min.js"></script>'
+    '<script>$(function(){var pages=[];for(var i=0;i<' + str(N_PAGES) + ';i++){pages.push("assets/pages/p"+(i<10?"0":"")+i+".webp")}'
+    'function h(){return Math.max(620,window.innerHeight-48)}'
+    'var om=/[?&]page=(\d+)/.exec(location.search);'
+    '$("#flip3d").flipBook(pages,{openPage:om?+om[1]:1,webgl:true,hard:"cover",transparent:true,height:h(),duration:900,soundEnable:true,'
+    'enableDownload:false,hideControls:"share,download,search,play,thumbnail,startPage,endPage,more,altPrev,altNext",'
+    'paddingTop:4,paddingBottom:56,paddingLeft:30,paddingRight:30,spotLightIntensity:.18,ambientLightIntensity:.85,shadowOpacity:.3,'
+    'maxTextureSize:2400,outline:' + json.dumps(outline, ensure_ascii=False) + ',autoEnableOutline:false});});</script>'
+    '</body></html>\n')
+open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(book3d_html.replace("{TOPNAV}", topnav("index.html")))
+if os.path.exists(os.path.join(SITE, "book3d.html")):
+    os.remove(os.path.join(SITE, "book3d.html"))
+
 n2 = page("news.html", "레큐란 석간 · 견본호", news)
 
 # ---- town map ----------------------------------------------------------------

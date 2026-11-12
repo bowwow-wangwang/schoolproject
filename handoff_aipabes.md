@@ -8,18 +8,22 @@
 
 | 페이지 | 형태 |
 |---|---|
-| `docs/index.html` 세계관 책 | 책상 위의 가죽 장정 책. 책장을 넘겨 읽음 (StPageFlip) |
+| `docs/index.html` 세계관 책 | 책상 위의 3D 가죽 장정 책 (DearFlip Lite, 쪽 이미지) |
 | `docs/news.html` 레큐란 석간 | 세계관 이해용 **견본호** 신문 한 부. 실시간/정기 발행 안 함 |
 | `docs/map.html` 관광 안내 | 3단 접이식 관광 팸플릿. 표지 클릭 시 펼침, 지도 크게 보기 |
 
 ## 작업 방법
 - `python build/build_site.py` → `docs/` 재생성. **HTML을 직접 고치지 말고 빌드 스크립트를 고칠 것**
+- 책 내용을 고쳤으면 `python build/render_pages.py`로 32쪽 이미지를 다시 찍는다 (크롬 필요). 원본은 `docs/book-source.html`
 - 손으로 쓴 소스(빌드가 덮어쓰지 않음): `docs/assets/book.css`, `docs/assets/book.js`
-- 쪽 넘침 검사: `docs/index.html?check` → 넘친 쪽 빨간 테두리 + 좌상단 `OVERFLOW[쪽:px]`
+- 쪽 넘침 검사: `docs/book-source.html?check` → 넘친 쪽 빨간 테두리 + 좌상단 `OVERFLOW[쪽:px]`
 - 지도 생성기: `build/map_svg.py`, 로고 생성기: `logo/gen_logo_b2.py`
 
 ## 확정된 결정
 - 로고: B2 금박 마법서(머리글자 A). `logo/mark_b2_gilt.svg`, 단색판 `mark_b2_mono.svg`
+- 책 위(표지·속표지·면지·뒤표지)에는 책 모양 로고 대신 문장 `logo/monogram_*.svg` (책 속의 책 금지)
+- 대상 기기: **PC 전용**. 사이트는 비영리 개인 사용 (DearFlip Lite 라이선스 조건)
+- 4원소는 1606년 「4원소」 판화(Rijksmuseum CC0), 등급은 월계관 판화 + 로마 숫자, 금화는 로마 주화 판화
 - 지형: 북쪽만 대륙에 이어지고 동·서·남이 바다인 **반도** (대한민국처럼)
 - 인간계 영문 고유명칭: **Mortalia** (한글 본문은 "인간계" 유지) → `worldbuilding/용어집.md`
 - 폰트(전부 세리프): 제목 Song Myung / 본문 Gowun Batang / 인용·첫 문장 Diphylleia / 신문 헤드라인 Hahmlet / 라틴 IM Fell English
@@ -32,6 +36,8 @@
 - 테이프+기울어진 쪽지 스크랩북 흉내, 손글씨 폰트, 갈색 귀여운 톤
 - 강조한다고 갑자기 크고 굵게 키운 문장 → "짜친다"
 - 기본 폰트(밋밋함), 같은 이미지 재사용, 격자처럼 인조적인 지도 배치
+- CSS로 그린 책 부품(탭·두께 줄무늬·책갈피) → "도형 이어 붙인 느낌", 세모 원소 기호 → "밋밋", 동그란 메달·배지 → "한국 인증 마크 같다"
+- 저절로 반복되는 효과 (반짝임·깜박임·흔들림)
 
 ## 세계관 규칙 (본문 수정 시 유지)
 - 속성은 최대 2개(GM 승인). 입학 후 속성이 늘거나 각성할 수 있음

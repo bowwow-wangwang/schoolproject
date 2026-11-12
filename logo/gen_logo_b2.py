@@ -219,8 +219,50 @@ def build(variant):
             f'<defs>{"".join(defs)}</defs>\n' + "\n".join(g) + "\n</svg>\n")
 
 
+def build_monogram(variant):
+    """Only the lozenge + serif A of the B2 mark (no book shape) — for use ON a book."""
+    gilt = variant == "gilt"
+    LINE = "url(#mg-gold)" if gilt else "currentColor"
+    FILL = LINE
+    defs = []
+    if gilt:
+        defs.append('<linearGradient id="mg-gold" gradientUnits="userSpaceOnUse" x1="60" y1="36" x2="180" y2="222">'
+                    '<stop offset="0" stop-color="#f3dc97"/><stop offset=".28" stop-color="#c99d45"/>'
+                    '<stop offset=".5" stop-color="#f0d488"/><stop offset=".74" stop-color="#9c7432"/>'
+                    '<stop offset="1" stop-color="#e2c070"/></linearGradient>')
+    mono = monogram_paths()
+    halo = "".join(f'<path d="{d}"/>' for d in mono)
+    defs.append(f'<clipPath id="mg-{variant}-loz"><path d="{lozenge(.86, .87)}"/></clipPath>')
+    defs.append(f'<mask id="mg-{variant}-halo" maskUnits="userSpaceOnUse" x="0" y="0" width="{W}" height="{H}">'
+                f'<rect width="{W}" height="{H}" fill="#fff"/>'
+                f'<g fill="#000" stroke="#000" stroke-width="7" stroke-linejoin="round">{halo}</g></mask>')
+    g = []
+    gl = "".join(f'<path d="{lozenge(s)}"/>' for s in [i / 28 for i in range(3, 25)])
+    g.append(f'<g clip-path="url(#mg-{variant}-loz)" mask="url(#mg-{variant}-halo)" stroke="{LINE}" stroke-width=".38" opacity=".7">{gl}</g>')
+    g.append(f'<path d="{lozenge(1)}" stroke="{LINE}" stroke-width="1.5"/>')
+    g.append(f'<path d="{lozenge(.93, .935)}" stroke="{LINE}" stroke-width=".55"/>')
+    for d in (-1, 1):
+        y = CY + d * RY
+        g.append(f'<path d="M{CX},{f(y+d*2)} V{f(y+d*16)}" stroke="{LINE}" stroke-width=".9"/>')
+        g.append(f'<path d="M{CX},{f(y+d*16)} C{f(CX-3.4)},{f(y+d*20)} {f(CX-1.6)},{f(y+d*25)} {CX},{f(y+d*27)} '
+                 f'C{f(CX+1.6)},{f(y+d*25)} {f(CX+3.4)},{f(y+d*20)} {CX},{f(y+d*16)} Z" fill="{FILL}" stroke="none"/>')
+        for s in (-1, 1):
+            g.append(f'<path d="M{CX},{f(y+d*9)} C{f(CX+s*5)},{f(y+d*7)} {f(CX+s*9)},{f(y+d*10)} {f(CX+s*7.5)},{f(y+d*14)} '
+                     f'C{f(CX+s*6.5)},{f(y+d*16)} {f(CX+s*4)},{f(y+d*15)} {f(CX+s*4.6)},{f(y+d*13)}" stroke="{LINE}" stroke-width=".8"/>')
+    for d in (-1, 1):
+        x = CX + d * RX
+        g.append(f'<path d="M{f(x+d*2)},{CY} H{f(x+d*8)}" stroke="{LINE}" stroke-width=".9"/>')
+        g.append(f'<path d="M{f(x+d*8)},{CY} l{f(d*3)},-3 l{f(d*3)},3 l{f(-d*3)},3 Z" fill="{FILL}" stroke="none"/>')
+    g.append(f'<g fill="{FILL}" stroke="none">' + "".join(f'<path d="{d}"/>' for d in mono) + '</g>')
+    vb = f"{f(CX-62)} {f(CY-RY-30)} 124 {f(2*RY+60)}"
+    return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="{vb}" role="img" aria-label="아이파베스 문장: 마름모 안의 머리글자 A" '
+            f'fill="none" stroke-linecap="round" stroke-linejoin="round">\n<defs>{"".join(defs)}</defs>\n' + "\n".join(g) + "\n</svg>\n")
+
+
 os.makedirs(OUT, exist_ok=True)
 for v in ("mono", "gilt"):
     with open(os.path.join(OUT, f"mark_b2_{v}.svg"), "w", encoding="utf-8") as fh:
         fh.write(build(v))
+    with open(os.path.join(OUT, f"monogram_{v}.svg"), "w", encoding="utf-8") as fh:
+        fh.write(build_monogram(v))
 print("ok")

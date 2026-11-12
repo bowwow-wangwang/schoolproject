@@ -66,7 +66,7 @@ body.desk>*{position:relative;z-index:1}
   radial-gradient(ellipse at 40% 50%,transparent 60%,rgba(110,72,30,.22))}
 .page.r:after{background:linear-gradient(270deg,rgba(80,50,20,.10),transparent 12%,transparent 80%,rgba(60,35,12,.16) 92%,rgba(40,22,8,.42)),
   radial-gradient(ellipse at 60% 50%,transparent 60%,rgba(110,72,30,.22))}
-.pc>*{position:relative;z-index:1}
+.pc>*{position:relative}
 .pc p,.pc h1,.pc h2,.pc h3,.pc ul,.pc ol,.pc figure,.pc table{margin:0;padding:0}
 .pc ul,.pc ol{list-style:none}
 .la{font-family:'IM Fell English',serif;font-style:italic}
@@ -117,9 +117,9 @@ body.desk>*{position:relative;z-index:1}
 .rk:last-child{border-bottom:1px solid rgba(43,31,20,.35)}
 .rk svg{width:4.6em;height:auto;display:block;filter:drop-shadow(0 .15em .15em rgba(60,35,10,.35))}
 .rk b{font-family:'Song Myung',serif;font-weight:400;font-size:1.06em}.rk p{font-size:.86em;color:#6b4a2a;line-height:1.6}
-.route{counter-reset:r;margin:.9em 0 .3em 1.2em;border-left:1px solid rgba(43,31,20,.5);padding-left:1.1em}
+.route{counter-reset:r;margin:.9em 0 .3em 1.5em;border-left:1px solid rgba(43,31,20,.5);padding-left:1.7em}
 .route li{position:relative;padding:.15em 0 .4em}
-.route li:before{counter-increment:r;content:counter(r,upper-roman);position:absolute;left:-1.85em;top:.3em;width:1.4em;height:1.4em;border-radius:50%;background:#eedfbf;border:1px solid #2b1f14;font-family:'IM Fell English SC',serif;font-size:.62em;line-height:1.35em;text-align:center}
+.route li:before{counter-increment:r;content:counter(r,upper-roman);position:absolute;left:-2.4em;top:.3em;width:1.4em;height:1.4em;border-radius:50%;background:#eedfbf;border:1px solid #2b1f14;font-family:'IM Fell English SC',serif;font-size:.62em;line-height:1.35em;text-align:center}
 .route b{display:block;font-family:'Song Myung',serif;font-weight:400}.route span{font-size:.84em;color:#6b4a2a}
 .ticket{display:grid;grid-template-columns:1fr auto;margin:.8em 0;border:1px solid rgba(43,31,20,.6);outline:1px solid rgba(43,31,20,.3);outline-offset:-.3em;background:rgba(255,250,235,.25)}
 .ticket .tl{padding:.6em .9em}.ticket .tl .sc{font-size:.62em;color:#6b4a2a;display:block}
@@ -252,3 +252,32 @@ body.check #chk{position:fixed;left:0;top:0;z-index:99;margin:0;padding:8px 14px
 .tk-stub i{writing-mode:vertical-rl;font-family:'IM Fell English',serif;font-size:4cqw}
 .tk-stub span{writing-mode:vertical-rl;font-family:'IM Fell English SC',serif;font-size:2.2cqw;letter-spacing:.12em}
 .tk-stamp{position:absolute;left:-1.5%;top:49%;width:17%;rotate:-18deg;mix-blend-mode:multiply}
+
+/* render mode (?render=N): one page at design size, no desk, no gutter shading */
+body.render{min-width:0;background:none}
+body.render:before,body.render .topnav,body.render .hint,body.render .tabs,body.render .stack,body.render .ribbon{display:none}
+body.render .stage{padding:0;display:block}
+body.render .bookwrap{width:560px;margin:0;transform:none}
+body.render #book{width:560px}
+body.render .page{display:none}
+body.render .page.show{display:block;position:fixed;left:0;top:0;width:560px;height:780px}
+html:has(body.render),body.render{overflow:hidden}
+body.render .page.soft:after{background:radial-gradient(ellipse at 50% 50%,transparent 62%,rgba(110,72,30,.18))}
+
+/* ===== engraved replacements (elements, ranks, coin) ===== */
+.els{grid-template-columns:1fr 1fr;border:0;gap:.9em .9em;margin-top:.2em}
+.els .el{padding:0;text-align:center;border:0!important;margin:0}
+.els .eim{border:1px solid rgba(43,31,20,.55);padding:.22em;outline:1px solid rgba(43,31,20,.22);outline-offset:.15em;aspect-ratio:5/4;overflow:hidden}
+.els .eim img{display:block;width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;filter:sepia(.5) contrast(1.08)}
+.els figcaption{padding-top:.45em}
+.els b{display:block;font-family:'Song Myung',serif;font-weight:400;font-size:1.3em;line-height:1.15}
+.els .la{display:block;font-size:.7em;color:#7a5f3e}
+.els .gd{margin-top:.15em;font-size:.86em;font-weight:700}
+.els .kw{font-size:.78em;color:#6b4a2a;line-height:1.45}
+.elcred{clear:both;margin-top:1.3em;text-align:right;font-family:'IM Fell English',serif;font-style:italic;font-size:.66em;color:#7a5f3e}
+.wreath{width:24%;margin:.2em auto 0}
+.wreath img{display:block;width:100%;height:auto;mix-blend-mode:multiply;filter:sepia(.45) contrast(1.05)}
+.rk .rn1{display:block;min-width:2.6em;text-align:center;font-family:'IM Fell English',serif;font-size:2.3em;line-height:1;color:#7a4e1c;letter-spacing:.04em}
+.rk .rn1 small{font-size:.6em;margin:0 .05em}
+.goldrow .coinimg{width:3.8em;height:auto;clip-path:circle(46% at 50% 50%);mix-blend-mode:multiply;filter:sepia(1) saturate(1.45) hue-rotate(-10deg) contrast(1.1) brightness(.9)}
+.plate.crop.wide.flat .im{aspect-ratio:2.3/1}

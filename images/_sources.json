@@ -136,5 +136,59 @@
   "license": "Public domain",
   "artist": "",
   "date": ""
+ },
+ {
+  "key": "el_ignis",
+  "title": "File:Vuur (Ignis), RP-P-1904-20.jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/11/Vuur_%28Ignis%29%2C_RP-P-1904-20.jpg/1280px-Vuur_%28Ignis%29%2C_RP-P-1904-20.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Vuur_(Ignis),_RP-P-1904-20.jpg",
+  "license": "CC0",
+  "artist": "Rijksmuseum",
+  "date": "1606"
+ },
+ {
+  "key": "el_aqua",
+  "title": "File:Water (Aqua), RP-P-1904-19.jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Water_%28Aqua%29%2C_RP-P-1904-19.jpg/1280px-Water_%28Aqua%29%2C_RP-P-1904-19.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Water_(Aqua),_RP-P-1904-19.jpg",
+  "license": "CC0",
+  "artist": "Rijksmuseum",
+  "date": "1606"
+ },
+ {
+  "key": "el_terra",
+  "title": "File:Aarde (Terra), RP-P-1904-21.jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Aarde_%28Terra%29%2C_RP-P-1904-21.jpg/1280px-Aarde_%28Terra%29%2C_RP-P-1904-21.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Aarde_(Terra),_RP-P-1904-21.jpg",
+  "license": "CC0",
+  "artist": "Rijksmuseum",
+  "date": "between 1606 and 1610date QS:P"
+ },
+ {
+  "key": "el_aer",
+  "title": "File:Lucht (Aer), RP-P-1904-22.jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/74/Lucht_%28Aer%29%2C_RP-P-1904-22.jpg/1280px-Lucht_%28Aer%29%2C_RP-P-1904-22.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Lucht_(Aer),_RP-P-1904-22.jpg",
+  "license": "CC0",
+  "artist": "Rijksmuseum",
+  "date": "1606"
+ },
+ {
+  "key": "coin",
+  "title": "File:Roman Coin 11b.jpg",
+  "thumb": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Roman_Coin_11b.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+  "page": "https://commons.wikimedia.org/wiki/File:Roman_Coin_11b.jpg",
+  "license": "Public domain",
+  "artist": "Herman Moll",
+  "date": "Original coin: c. 210 – 213 \nC"
+ },
+ {
+  "key": "wreath",
+  "title": "File:Wreath and Pen.jpg",
+  "thumb": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/38/Wreath_and_Pen.jpg/1280px-Wreath_and_Pen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "page": "https://commons.wikimedia.org/wiki/File:Wreath_and_Pen.jpg",
+  "license": "Public domain",
+  "artist": "William Harry Rogers",
+  "date": "1859"
  }
 ]
