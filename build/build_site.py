@@ -84,6 +84,7 @@ def coin(size=70):
     g.append(f'<text x="{c}" y="{c+21}" text-anchor="middle" font-family="IM Fell English SC,serif" font-size="5.6" letter-spacing="1.2" fill="#2a170d">C · GOLD</text>')
     return f'<svg viewBox="0 0 80 80" width="{size}" height="{size}" aria-hidden="true" stroke-linecap="round">{"".join(g)}</svg>'
 
+SUN = 2  # current sun: II, The High Priestess (user canon, 2026-11-13)
 ROMAN = ["0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII", "XIII",
          "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI"]
 
@@ -99,8 +100,8 @@ def dial():
         r1 = 168 if i % 5 == 0 else 175
         t.append(f'M{f(c+181*math.cos(a))},{f(c+181*math.sin(a))}L{f(c+r1*math.cos(a))},{f(c+r1*math.sin(a))}')
     g.append(f'<path d="{"".join(t)}" stroke="{INK}" stroke-width=".6"/>')
-    # current segment (18) gilded band
-    a0, a1 = math.radians(18 * 360 / 22 - 90 - 360 / 44), math.radians(18 * 360 / 22 - 90 + 360 / 44)
+    # current segment gilded band
+    a0, a1 = math.radians(SUN * 360 / 22 - 90 - 360 / 44), math.radians(SUN * 360 / 22 - 90 + 360 / 44)
     def arc(r, a, b):
         return f'{f(c+r*math.cos(a))},{f(c+r*math.sin(a))}', f'{f(c+r*math.cos(b))},{f(c+r*math.sin(b))}'
     p0, p1 = arc(150, a0, a1); q1, q0 = arc(104, a1, a0)
@@ -112,7 +113,7 @@ def dial():
         sep.append(f'M{f(c+146*math.cos(a))},{f(c+146*math.sin(a))}L{f(c+104*math.cos(a))},{f(c+104*math.sin(a))}')
         b = math.radians(i * 360 / 22 - 90)
         x, y = c + 126 * math.cos(b), c + 126 * math.sin(b)
-        now = i == 18
+        now = i == SUN
         fw = ' font-weight="700"' if now else ""
         g.append(f'<text x="{f(x)}" y="{f(y+4.5)}" text-anchor="middle" font-family="IM Fell English SC,serif" '
                  f'font-size="{14 if now else 12.5}" fill="{"#2a170d" if now else INK}"{fw}>{ROMAN[i]}</text>')
@@ -122,8 +123,8 @@ def dial():
     g.append(f'<g fill="none" stroke="{INK}" stroke-width=".3" opacity=".45">{ros}</g>')
     g.append(f'<circle cx="{c}" cy="{c}" r="44" fill="#ecdcb4" stroke="{INK}" stroke-width=".9"/>')
     g.append(f'<circle cx="{c}" cy="{c}" r="40" fill="none" stroke="{INK}" stroke-width=".4"/>')
-    # needle to XVIII
-    a = math.radians(18 * 360 / 22 - 90)
+    # needle to the current sun
+    a = math.radians(SUN * 360 / 22 - 90)
     tipx, tipy = c + 98 * math.cos(a), c + 98 * math.sin(a)
     nx, ny = -math.sin(a), math.cos(a)
     bx, by = c + 46 * math.cos(a), c + 46 * math.sin(a)
@@ -135,7 +136,7 @@ def dial():
         a = math.radians(k * 90 - 90 + 45)
         x, y = c + 192 * math.cos(a), c + 192 * math.sin(a)
         g.append(f'<circle cx="{f(x)}" cy="{f(y)}" r="1.6" fill="{INK}"/>')
-    return (f'<svg class="dial" viewBox="0 0 400 400" role="img" aria-label="22장의 타로로 이루어진 한 바퀴. 지금은 95회전 18번째, 달(XVIII)." '
+    return (f'<svg class="dial" viewBox="0 0 400 400" role="img" aria-label="22장의 타로로 이루어진 한 바퀴. 지금은 95회전 2번째, 여교황(II)." '
             f'stroke-linecap="round">{"".join(g)}</svg>')
 
 def alch(kind):
@@ -429,11 +430,11 @@ def ticket_html():
         '<span>by the <em>Dimensional Rail</em> of Recuran</span></div>'
         '<div class="tk-side"><span class="tk-list">Second Class</span><i>Bound for:</i></div>'
         '<div class="tk-top"><span>From · The Far Worlds</span><span>Via · Aiphabess</span>'
-        '<em class="tk-gold">{ XVIII }</em></div>'
+        '<em class="tk-gold">{ II }</em></div>'
         '<div class="tk-big">Mortalia</div>'
         '<div class="tk-bl"><span>Immigration Check</span><small>Warp Zone <b>|</b> Gold Exchange</small></div>'
-        '<div class="tk-br"><span>No. 2086 <b>|</b> XCV · XVIII</span><small>Present at the platform</small></div>'
-        '<div class="tk-stub"><i>Admit One</i><span>Single Passage · No. 2086</span></div>'
+        '<div class="tk-br"><span>No. 2070 <b>|</b> XCV · II</span><small>Present at the platform</small></div>'
+        '<div class="tk-stub"><i>Admit One</i><span>Single Passage · No. 2070</span></div>'
         + stamp + '</div><figcaption>부록 · 차원열차 승차권 견본 — 인간계(Mortalia)행</figcaption></figure>')
 
 
@@ -496,8 +497,8 @@ cover_l = (f'{logo("cv")}<h1>아이파베스</h1><p class="sc">AIPHABESS</p><p c
            f'<p class="ds">5개 명문 학교 중 하나. 마법 학교이자 대도서관. 모든 종족이 이해를 배우는 곳. 레큐란 대륙 남쪽, 삼면이 바다인 반도 위의 대도시.</p>')
 cover_r = (head("Index", "차례") + f'<ul class="toc">{toc}</ul>'
            '<div class="facts"><div><b>레큐란 대륙</b><span class="la">Recuran Continent</span></div>'
-           '<div><b>95회전 18번째</b>달의 태양, The Moon</div>'
-           '<div><b>약 2,086년째</b>인간계 환산 기준</div>'
+           '<div><b>95회전 2번째</b>여교황의 태양, The High Priestess</div>'
+           '<div><b>약 2,070년째</b>인간계 환산 기준</div>'
            '<div><b>5대 명문</b>아이파베스, 서양관</div></div>')
 H.append(('cov', spread(cover_l, cover_r, lh="Contents", rh_l="Aiphabess", fol=("i", "ii"), lcls="cover")))
 
@@ -608,10 +609,10 @@ H.append(('rum', spread(rum_l, rum_r, rh_l="Rumors", fol=(18, 19), sid="rum")))
 
 # time ---------------------------------------------------------------------------
 tm_l = (head("Caput VIII · The Cycle of Suns", "태양이 도는 방식") +
-        f'<div class="dialw">{dial()}</div><p class="dcap">22개의 태양이 한 바퀴. 지금은 95회전 18번째, 달(XVIII)의 태양.</p>')
+        f'<div class="dialw">{dial()}</div><p class="dcap">22개의 태양이 한 바퀴. 지금은 95회전 2번째, 여교황(II)의 태양.</p>')
 tm_r = ('<p style="margin-top:8px" class="drop">시간과 날짜는 인간계와 같이 0~24시, 1~12월로 적는다. 다만 연도는 2001년, 2002년 식으로 적지 않는다. 타로 카드의 순서대로 돌아간다. 예를 들어 2회전 12번째의 태양이라고 적는다. 태양이 바뀌는 날은 인간계 기준으로 1년이다.</p>'
-        '<div class="fm"><div class="f">(95 − 1) × 22 + 18 = 2,086</div><p>(회전수 − 1) × 22 + 태양 번호. 1회전은 22년이다.</p></div>'
-        '<p>현재 95회전 18번째 달의 태양은 인간계 기준으로 약 2,086년째. 월과 일은 인간계와 같고, 기준일은 3월 7일이다.</p>'
+        '<div class="fm"><div class="f">(95 − 1) × 22 + 2 = 2,070</div><p>(회전수 − 1) × 22 + 태양 번호. 1회전은 22년이다.</p></div>'
+        '<p>현재 95회전 2번째 여교황의 태양은 인간계 기준으로 약 2,070년째. 월과 일은 인간계와 같고, 기준일은 3월 7일이다.</p>'
         '<div class="qt" style="margin-top:16px"><p>그 태양에 태어난 아이들은 정위치의 기운과 역위치의 기운이 흐른다.</p><p>이번 태양은 여교황의 태양이므로, 지식이 풍부한 아이들이 태어날 것이다.</p></div>'
         '<p style="margin-top:12px">마법사들은 이런 말을 주고받을 만큼 신앙이 깊다.</p>')
 TAROT = [("The Fool", "광대", "모험, 무지(無知)", "경솔, 어리석음"), ("The Magician", "마술사", "창조, 수완", "겁많음, 기만"),
@@ -629,7 +630,7 @@ def tarot_table(rng):
     rows = []
     for i in rng:
         en, ko, up, rv = TAROT[i]
-        cls = ' class="now"' if i == 18 else ""
+        cls = ' class="now"' if i == SUN else ""
         rows.append(f'<tr{cls}><td><span class="rn">{ROMAN[i]}</span></td><td><b>{ko}</b><span class="la">{en}</span></td><td>{up}</td><td>{rv}</td></tr>')
     return ('<table class="tar"><thead><tr><th>No.</th><th>Arcana</th><th>정위치</th><th>역위치</th></tr></thead>'
             f'<tbody>{"".join(rows)}</tbody></table>')
@@ -914,7 +915,7 @@ pg(f'{monogram("cv", "gilt", "mark")}<h1 class="gold">아이파베스</h1><p cla
 pg(f'<div class="exlibris"><span class="sc">Ex Libris</span>{mono("ex")}<p>아이파베스 대도서관 소장<br>함부로 지하 서고에 들고 내려가지 말 것</p></div>', "l", "soft", "endpaper")
 pg(f'{mono("tt")}<h1>아이파베스</h1><p class="sc">AIPHABESS</p><p class="la">School of All Origins</p><div class="orn c" style="width:60%"></div>'
    '<p class="ds">5개 명문 학교 중 하나. 마법 학교이자 대도서관. 모든 종족이 이해를 배우는 곳.<br>레큐란 대륙 남쪽, 삼면이 바다인 반도 위의 대도시.</p>'
-   '<p class="imp">아이파베스 대도서관 간행 · 95회전 18번째 달</p>', "r", "soft", "title")
+   '<p class="imp">아이파베스 대도서관 간행 · 95회전 2번째 · 여교황의 태양</p>', "r", "soft", "title")
 pg(cover_r, "l", rh="Contents", fo="i")
 pg('<div class="orn c" style="width:50%"></div><p class="q">서로를 향한 이해가<br>곧 가장 위대한 힘이 되리니.</p><p class="la">— inscribed in the lobby of Aiphabess</p><div class="orn c" style="width:50%"></div>',
    "r", "soft", "epigraph", fo="ii")
@@ -947,7 +948,7 @@ pg(refs2, "l", rh="References")
 pg('<div class="colophon"><span class="cap">Colophon</span><h3>판권</h3>'
    '<p class="colo-t">아이파베스 · 세계관 책</p>'
    '<p>레큐란 대륙 남쪽, 삼면이 바다인 반도 위의 대도시 아이파베스와 그 학교를 소개한다.</p>'
-   '<p>아이파베스 대도서관 간행 · 95회전 18번째 달</p>'
+   '<p>아이파베스 대도서관 간행 · 95회전 2번째 · 여교황의 태양</p>'
    '<p class="colo-n">이 책은 비영리 개인 팬 프로젝트다. 도판과 자료의 출처는 앞의 참고 출처에 있다.</p></div>', "r", rh="Colophon")
 pg(mono("bk"), "l", "hard", "back")
 assert len(pages_html) % 2 == 0, len(pages_html)
@@ -979,20 +980,20 @@ def npimg(key, cap, cls=""):
 news = f'''<div class="np">
 <div class="np-top"><span>월간 · 3월호</span><span>모든 차원 승강장에서 판매</span><span>값 1골드</span></div>
 <div class="np-title"><h1>차원 뉴스</h1><span class="sc">The Dimensional News</span></div>
-<div class="np-date"><span>95회전 18번째 달 · 3월 10일 발행</span><span>발행인 · 차원 정보 제공자</span><span>레큐란 지국 · 아이파베스 서항</span></div>
+<div class="np-date"><span>95회전 2번째 · 여교황의 태양 · 3월 10일 발행</span><span>발행인 · 차원 정보 제공자</span><span>레큐란 지국 · 아이파베스 서항</span></div>
 <div class="np-front">
  <div class="lead">
-  <h2>새 태양 '달'이 뜬 날, 아이파베스 정문 앞 줄이 필사가 골목까지</h2>
+  <h2>새 태양 '여교황'이 뜬 날, 아이파베스 정문 앞 줄이 필사가 골목까지</h2>
   <p class="deck">입학 접수 첫날 지원자 몰려 … 최고령은 일흔넷, 최연소는 열다섯</p>
   {npimg("np_square", "입학 접수 첫날 아침의 광장", "crop")}
-  <p><b class="by">【아이파베스 = 리넨 도르 기자】</b> 열여덟 번째 태양, 달이 떠오른 지난 7일 아침. 아이파베스 정문 앞에 선 줄은 해가 중천에 걸릴 무렵 언덕 아래 필사가 골목 어귀까지 이어졌다. 학교는 접수 인원을 밝히지 않았지만, 줄을 지켜본 골목 상인들은 "예년보다 확실히 길다"고 입을 모았다.</p>
+  <p><b class="by">【아이파베스 = 리넨 도르 기자】</b> 두 번째 태양, 여교황이 떠오른 지난 7일 아침. 아이파베스 정문 앞에 선 줄은 해가 중천에 걸릴 무렵 언덕 아래 필사가 골목 어귀까지 이어졌다. 학교는 접수 인원을 밝히지 않았지만, 줄을 지켜본 골목 상인들은 "예년보다 확실히 길다"고 입을 모았다.</p>
   <p>가장 눈길을 끈 지원자는 올해 일흔넷인 오르다 벨크 씨다. 반도 북쪽 농가에서 사흘을 걸어왔다는 그는 "졸업할 마음만 있으면 받아 준다길래 왔다. 나이는 서류에 적는 숫자일 뿐"이라며 웃었다. 같은 줄 맨 앞에는 바로 이날 열다섯이 된 학생이 서 있었다.</p>
   <p>접수를 마친 지원자들은 점성탑에서 반과 속성을 정하는 접점 의식을 차례로 치르고 있다. 의식 중에 꾼 꿈 이야기는 벌써 만족 시장의 단골 화제가 됐다. 입학이 확정된 학생은 이달 안에 반별 기숙사로 들어간다.</p>
  </div>
  <aside>
-  <div class="box" style="margin-bottom:16px"><h3>이달의 태양</h3><span class="big">XVIII · 달</span>
-   <p>정위치 · 불안, 애매함, 혼돈<br>역위치 · 불안 해소, 명료함, 혼돈의 끝</p>
-   <p style="margin-top:6px;font-family:'IM Fell English',serif;font-size:15px">(95 − 1) × 22 + 18 = 2,086</p></div>
+  <div class="box" style="margin-bottom:16px"><h3>이달의 태양</h3><span class="big">II · 여교황</span>
+   <p>정위치 · 지식, 총명<br>역위치 · 잔혹, 무례함</p>
+   <p style="margin-top:6px;font-family:'IM Fell English',serif;font-size:15px">(95 − 1) × 22 + 2 = 2,070</p></div>
   <div class="box" style="margin-bottom:16px"><h3>골드 시세</h3>
    <table><tr><td>100골드 · 지난달</td><td>9,870원</td></tr><tr><td>100골드 · 이번 달</td><td>10,240원</td></tr><tr><td>변동</td><td>+370원</td></tr></table>
    <p style="margin-top:8px">공식 워프존 자동 환전 기준. 새 태양을 맞아 인간계로 가는 마법사가 늘며 소폭 올랐다.</p></div>
@@ -1020,9 +1021,9 @@ news = f'''<div class="np">
   <p><b>머나먼 세계</b> 초대장을 받은 첫 입학생이 이름조차 처음 듣는 세계에서 차원열차를 타고 도착했다. 승강장 직원들도 그 세계의 이름을 받아 적지 못했다고 한다.</p></div>
  <article><h3>마계 통판북 '깔깔 폭죽' 회수</h3>
   <p>천마계 통판북이 마계 장난감 '깔깔 폭죽'을 거둬들인다. 18세 미만이 서명한 주문이 잇따랐기 때문이다. 서명 5초 만에 배달되는 탓에 막을 틈이 없었다는 설명이다.</p></article>
- <article class="column"><h3>달의 태양 아래서</h3>
+ <article class="column"><h3>여교황의 태양 아래서</h3>
   <p class="pen">필명 · 별을 세는 사람</p>
-  <p>달의 해에 태어나는 아이들에게는 불안과 혼돈이, 그리고 그 혼돈의 끝이 함께 흐른다고들 한다. 나는 그 말을 겁주는 말로 듣지 않는다. 안개가 짙은 해일수록 등대는 더 멀리 보이니까. 올해 정문 앞에 줄을 선 이들 모두에게, 안개 너머가 보이기를.</p></article>
+  <p>여교황의 해에 태어나는 아이들은 지식이 풍부하다고들 한다. 다만 같은 카드를 뒤집으면 잔혹과 무례가 적혀 있다는 것도 함께 기억해 두고 싶다. 아는 것이 많을수록 말끝이 날카로워지기 쉬우니까. 올해 정문 앞에 줄을 선 이들 모두에게, 아는 만큼 너그러워지기를.</p></article>
  <article class="letter"><h3>독자 투고 · 필사가 골목의 잉크 냄새</h3>
   <p>졸업하고 공방 거리로 옮긴 지 열두 해. 이달 기사를 보니 필사가 골목의 밤, 덜 마른 잉크 냄새가 그립다. 신입생들이여, 그 냄새를 맡을 수 있을 때 많이 맡아 두시라. <i>— 공방 거리 대장장이 하펠 무어</i></p></article>
  <div class="box"><h3>정령 조향소 알림</h3>
@@ -1055,26 +1056,50 @@ book3d_html = (
     f'<title>아이파베스 · 세계관 책</title><link rel="icon" href="assets/logo.svg"><link rel="stylesheet" href="{FONTS}">'
     '<link rel="stylesheet" href="assets/vendor/dflip/css/dflip.min.css"><link rel="stylesheet" href="assets/vendor/dflip/css/themify-icons.min.css">'
     '<link rel="stylesheet" href="assets/book.css"><style>'
-    '#flip3d{width:100%;margin:0 auto}'
+    'html,body{overflow:hidden}#flip3d{width:100%;margin:0 auto}'
     '.df-container{background:transparent!important}'
-    '.df-ui-controls,.df-ui-controls .df-ui-btn,.df-ui-wrapper{background:rgba(32,20,12,.86)!important;color:#e6c97c!important;border:0!important;box-shadow:none!important}'
-    '.df-ui-controls{border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.5)!important}.df-ui-btn:hover{color:#fff1c0!important}'
-    '.df-ui-page,.df-ui-page *{color:#cdb382!important;background:transparent!important}'
-    '.df-outline-container{background:#efe2c4!important;color:#2b1f14!important;font-family:"Song Myung",serif}'
-    '.df-outline-container a{color:#2b1f14!important}'
+    '.bkbar{position:fixed;left:50%;bottom:12px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:4px;padding:4px 10px;'
+    'background:rgba(32,20,12,.86);border-radius:6px;box-shadow:0 4px 10px rgba(0,0,0,.5);font-size:14px;color:#e6c97c}'
+    '.bkbar button{background:none;border:0;color:inherit;font:inherit;cursor:pointer;padding:4px 10px;border-radius:4px}'
+    '.bkbar button:hover{color:#fff1c0}.bkbar button:focus-visible{outline:2px solid #e6c97c;outline-offset:1px}'
+    '.bkbar .ar{font-size:20px;line-height:1;padding:2px 10px 4px}'
+    '.bkbar #bkNo{min-width:4.6em;text-align:center;font-family:"IM Fell English",serif;color:#cdb382}'
+    '.bkbar .sep{width:1px;height:16px;background:rgba(230,201,124,.3);margin:0 4px}'
+    '.bktoc{position:relative}'
+    '.bktoc ol{position:absolute;bottom:calc(100% + 12px);left:50%;transform:translateX(-50%);min-width:210px;margin:0;padding:8px 0;list-style:none;'
+    'background:#efe2c4;border-radius:4px;box-shadow:0 8px 20px rgba(0,0,0,.55)}'
+    '.bktoc ol[hidden]{display:none}'
+    '.bktoc li button{display:block;width:100%;text-align:left;padding:5px 18px;color:#2b1f14;font-family:"Song Myung",serif;font-size:15px;border-radius:0}'
+    '.bktoc li button:hover{background:rgba(110,70,30,.12);color:#2b1f14}'
     '.credit3d{position:fixed;right:14px;bottom:8px;margin:0;font-size:11px;color:#8f7a55;text-shadow:0 1px 2px #000;z-index:5}.credit3d a{color:#cdb382}'
     '</style></head>\n<body class="desk">{TOPNAV}<main><div id="flip3d"></div>'
+    '<nav class="bkbar" aria-label="책 넘기기"><button class="ar" id="bkPrev" aria-label="앞 쪽">‹</button><span id="bkNo" aria-live="polite"></span>'
+    '<button class="ar" id="bkNext" aria-label="다음 쪽">›</button><span class="sep"></span>'
+    '<div class="bktoc"><button id="bkTocBtn" aria-expanded="false" aria-controls="bkToc">차례</button><ol id="bkToc" hidden>'
+    + "".join(f'<li><button data-p="{o["dest"]}">{o["title"]}</button></li>' for o in outline) +
+    '</ol></div><button id="bkFull">전체 화면</button></nav>'
     '<p class="credit3d">책장 넘김: <a href="https://github.com/dearhive/dearflip-js-flipbook">DearFlip Lite</a> by DearHive '
     '(<a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>, 비영리 개인 사용)</p></main>'
     '<script>var dFlipLocation="assets/vendor/dflip/";</script>'
     '<script src="assets/vendor/dflip/js/libs/jquery.min.js"></script><script src="assets/vendor/dflip/js/dflip.min.js"></script>'
-    '<script>$(function(){var pages=[];for(var i=0;i<' + str(N_PAGES) + ';i++){pages.push("assets/pages/p"+(i<10?"0":"")+i+".webp")}'
-    'function h(){return Math.max(620,window.innerHeight-48)}'
-    'var om=/[?&]page=(\d+)/.exec(location.search);'
-    '$("#flip3d").flipBook(pages,{openPage:om?+om[1]:1,webgl:true,hard:"cover",transparent:true,height:h(),duration:900,soundEnable:true,'
-    'enableDownload:false,hideControls:"share,download,search,play,thumbnail,startPage,endPage,more,altPrev,altNext",'
-    'paddingTop:4,paddingBottom:56,paddingLeft:30,paddingRight:30,spotLightIntensity:.18,ambientLightIntensity:.85,shadowOpacity:.3,'
-    'maxTextureSize:2400,outline:' + json.dumps(outline, ensure_ascii=False) + ',autoEnableOutline:false});});</script>'
+    '<script>$(function(){var N=' + str(N_PAGES) + ',pages=[];for(var i=0;i<N;i++){pages.push("assets/pages/p"+(i<10?"0":"")+i+".webp")}'
+    'function h(){return Math.max(560,window.innerHeight-$(".topnav").outerHeight(true)+44)}'
+    'var om=/[?&]page=(\d+)/.exec(location.search),bk;'
+    'function upd(){var p=bk&&bk.target?bk.target._activePage:null;if(p)$("#bkNo").text(p+" / "+N)}'
+    '$("#flip3d").height(h());'
+    'bk=$("#flip3d").flipBook(pages,{openPage:om?+om[1]:1,webgl:true,hard:"cover",transparent:true,height:h(),duration:900,soundEnable:true,'
+    'enableDownload:false,controlsPosition:"hide",'
+    'paddingTop:0,paddingBottom:0,paddingLeft:0,paddingRight:0,spotLightIntensity:.18,ambientLightIntensity:.85,shadowOpacity:.3,'
+    'maxTextureSize:2400,onReady:upd,onFlip:upd});'
+    '$("#bkPrev").on("click",function(){bk.prev()});$("#bkNext").on("click",function(){bk.next()});'
+    'var $t=$("#bkToc"),$tb=$("#bkTocBtn");function toc(o){$t.prop("hidden",!o);$tb.attr("aria-expanded",o)}'
+    '$tb.on("click",function(e){e.stopPropagation();toc($t.prop("hidden"))});'
+    '$t.on("click","button",function(){bk.gotoPage(+$(this).data("p"));toc(false);setTimeout(upd,50)});'
+    '$(document).on("click",function(e){if(!$(e.target).closest(".bktoc").length)toc(false)}).on("keydown",function(e){if(e.key==="Escape")toc(false)});'
+    '$("#bkFull").on("click",function(){var d=document;if(d.fullscreenElement)d.exitFullscreen();else d.documentElement.requestFullscreen()});'
+    '$(document).on("fullscreenchange",function(){$("#bkFull").text(document.fullscreenElement?"창으로 보기":"전체 화면")});'
+    '$(window).on("resize",function(){$("#flip3d").height(h())});'
+    'setInterval(upd,500);});</script>'
     '</body></html>\n')
 open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(book3d_html.replace("{TOPNAV}", topnav("index.html")))
 if os.path.exists(os.path.join(SITE, "book3d.html")):
@@ -1123,7 +1148,7 @@ p3 = ('<h2><i>III</i>꼭 들러 볼 곳<small>Visenda</small></h2>'
       '<li>대도서관 지하 서고의 원본은 교장의 약속, 대마법사의 맹약, 4원소 학자의 서약 없이는 볼 수 없습니다.</li>'
       '<li>천마계 통판북의 마계 상품은 18세 미만 이용 불가.</li>'
       '<li>안개 곶의 돌탑에 얽힌 소문을 좇아 밤에 홀로 가지 마십시오.</li></ul></div>')
-back = '<div class="pback"><p>아이파베스 대도시 관광 안내<br><small>견본 · 95회전 18번째 달</small></p></div>'
+back = '<div class="pback"><p>아이파베스 대도시 관광 안내<br><small>견본 · 95회전 2번째 · 여교황의 태양</small></p></div>'
 pam = (f'<div class="pam-desk"><div class="pamw"><div class="pam" id="pam">'
        f'<div class="pp p1"><div class="face in">{p1}</div><div class="face out pcover" role="button" tabindex="0" aria-label="팸플릿 펼치기">{cover}</div></div>'
        f'<div class="pp p2"><div class="face in">{p2}</div></div>'
