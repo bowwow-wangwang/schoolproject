@@ -441,7 +441,7 @@ def ticket_html():
 # References (bibliography at the end of the book) ------------------------------------
 # Book images in order of appearance; numbers are cited in captions as [n].
 REF_BOOK = ["gate", "library", "el_ignis", "el_aqua", "el_terra", "el_aer", "harbour", "wreath",
-            "scholar", "coin", "cat_heaven", "cat_hell", "lighthouse", "tower"]
+            "scholar", "coin", "lighthouse", "tower"]
 REF_SITE = ["np_square", "np_station", "np_reading", "np_alley", "pm_street", "pm_books", "pm_inn", "pm_fish"]
 REF_META = {
     "gate":       ("Gustave Doré", "『왕의 목가(Idylls of the King)』 삽화", "1867", "Wikimedia Commons", "퍼블릭 도메인"),
@@ -454,8 +454,6 @@ REF_META = {
     "wreath":     ("William Harry Rogers", "「월계관과 펜(Wreath and Pen)」", "1859", "Wikimedia Commons", "퍼블릭 도메인"),
     "scholar":    ("Gustave Doré", "『왕의 목가(Idylls of the King)』 삽화", "1867", "Wikimedia Commons", "퍼블릭 도메인"),
     "coin":       ("Herman Moll", "로마 주화 판화", "", "Wikimedia Commons", "퍼블릭 도메인"),
-    "cat_heaven": ("Gustave Doré", "『신곡』 천국편 31곡 삽화", "19세기", "Wikimedia Commons", "퍼블릭 도메인"),
-    "cat_hell":   ("Gustave Doré", "『신곡』 지옥편 5곡 「미노스」", "", "Wikimedia Commons", "퍼블릭 도메인"),
     "lighthouse": ("Henry Winkles (J. H. Sander 원화)", "「노이베르크 섬(Insel Neuwerk)」", "1840년경", "Wikimedia Commons", "퍼블릭 도메인"),
     "tower":      ("Gustave Doré", "『왕의 목가(Idylls of the King)』 삽화", "1867", "Wikimedia Commons", "퍼블릭 도메인"),
     "np_square":  ("Eduard Hüllverding", "「브라쇼브 시청 광장」", "1848", "Wikimedia Commons", "퍼블릭 도메인"),
@@ -578,22 +576,67 @@ wld1_r = ('<div class="trio" style="margin-top:8px">'
           '<div><h3>수호자</h3><p>소환자와 소환자의 마을, 집, 교실 등을 지키는 사명을 띠고 소환되는 존재. 동양의 성주신과 비슷하며 형태는 다양하다. 염원이 강할수록 더 강한 수호자를 소환하거나 만들어낼 수 있다. 이름이 부여된 수호자는 천사와 악마를 제외하면 극히 드물다.</p></div>'
           '<div><h3>골드</h3><p>공식 워프존으로 인간계에 가면 보유한 골드가 그 나라의 화폐로 자동 환전된다. 이 점을 이용해 환율 차익을 노리는 주식 마법사들도 적지 않다.</p></div></div>'
           f'<div class="goldrow"><img class="coinimg" src="{img_url("coin")}" alt="옛 주화 판화"><div><b>100골드 = 약 10,000원</b><span>한화 기준 환산</span></div></div>')
+def seal(kind, gid, c1, c2, c3):
+    """Gilt-tooled magic seal for the catalogue covers: a lettered ring around a sigil."""
+    c, F = 100, (lambda v: f"{v:.2f}")
+    ring = ("SIGNA · ET · ADVENIET · CAELESTIA · ADVENIUNT ·" if kind == "heaven"
+            else "SUB · SIGNO · NIGRO · VENIUNT · INFERNA ·")
+    g = [f'<defs><linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{c1}"/>'
+         f'<stop offset=".45" stop-color="{c2}"/><stop offset="1" stop-color="{c3}"/></linearGradient>'
+         f'<path id="{gid}-r" d="M{c},{c} m-77,0 a77,77 0 1,1 154,0 a77,77 0 1,1 -154,0"/></defs>',
+         f'<g fill="none" stroke="url(#{gid})">'
+         f'<circle cx="{c}" cy="{c}" r="93" stroke-width="1.8"/><circle cx="{c}" cy="{c}" r="88" stroke-width=".6"/>'
+         f'<circle cx="{c}" cy="{c}" r="67" stroke-width="1.1"/><circle cx="{c}" cy="{c}" r="63" stroke-width=".5"/></g>',
+         f'<text font-family="IM Fell English SC,serif" font-size="11" fill="url(#{gid})">'
+         f'<textPath href="#{gid}-r" textLength="478" lengthAdjust="spacing">{ring}</textPath></text>']
+    if kind == "heaven":
+        rays = []
+        for i in range(32):
+            a = math.radians(i * 360 / 32 - 90)
+            r0, r1 = 20, (58 if i % 2 == 0 else 44)
+            if i % 4 == 0:
+                r1 = 61
+            rays.append(f'M{F(c+r0*math.cos(a))},{F(c+r0*math.sin(a))}L{F(c+r1*math.cos(a))},{F(c+r1*math.sin(a))}')
+        g.append(f'<path d="{"".join(rays)}" stroke="url(#{gid})" stroke-width=".9" stroke-linecap="round"/>')
+        g.append(f'<circle cx="{c}" cy="{c}" r="16" fill="none" stroke="url(#{gid})" stroke-width="1.2"/>')
+        g.append(f'<path d="M{c},{c-11} L{c+3},{c-3} L{c+11},{c} L{c+3},{c+3} L{c},{c+11} L{c-3},{c+3} L{c-11},{c} L{c-3},{c-3} Z" fill="url(#{gid})"/>')
+    else:
+        pts = [(c + 58 * math.cos(math.radians(i * 360 / 7 - 90)), c + 58 * math.sin(math.radians(i * 360 / 7 - 90))) for i in range(7)]
+        order = [pts[(i * 3) % 7] for i in range(8)]
+        g.append(f'<path d="M{"L".join(F(x)+","+F(y) for x, y in order)}" fill="none" stroke="url(#{gid})" stroke-width="1" stroke-linejoin="round"/>')
+        g.append("".join(f'<circle cx="{F(x)}" cy="{F(y)}" r="2.2" fill="url(#{gid})"/>' for x, y in pts))
+        g.append(f'<circle cx="{c}" cy="{c}" r="20" fill="none" stroke="url(#{gid})" stroke-width="1.1"/>')
+        g.append(f'<path d="M{c-11},{c-6} A12,12 0 1,0 {c+11},{c-6} A10,10 0 1,1 {c-11},{c-6} Z" fill="url(#{gid})"/>')
+    return f'<svg viewBox="0 0 200 200" aria-hidden="true">{"".join(g)}</svg>'
+def fleuron(gid, c1, c2, c3):
+    """Gilt corner tool: an L bracket with two scrolls and a bud, like a binder's corner stamp."""
+    return (f'<svg viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="{gid}" x1="0" y1="0" x2="1" y2="1">'
+            f'<stop offset="0" stop-color="{c1}"/><stop offset=".45" stop-color="{c2}"/><stop offset="1" stop-color="{c3}"/></linearGradient></defs>'
+            f'<g fill="none" stroke="url(#{gid})" stroke-width="1.15" stroke-linecap="round">'
+            '<path d="M3,37 V9 Q3,3 9,3 H37"/><path d="M7,33 V12 Q7,7 12,7 H33"/>'
+            '<path d="M3,22 C9,22 12,18 10,14.5 C8.6,12 5.4,13 6.4,15.6"/><path d="M22,3 C22,9 18,12 14.5,10 C12,8.6 13,5.4 15.6,6.4"/>'
+            '<path d="M12,12 C15,15 17,17 21,18 M12,12 C15,15 17,17 18,21"/></g>'
+            f'<circle cx="12" cy="12" r="1.7" fill="url(#{gid})"/><circle cx="21.6" cy="18.3" r="1" fill="url(#{gid})"/><circle cx="18.3" cy="21.6" r="1" fill="url(#{gid})"/></svg>')
+def corners(gid, *cols):
+    f = fleuron(gid, *cols)
+    return "".join(f'<span class="cn {k}">{f}</span>' for k in ("tl", "tr", "bl", "br"))
 wld2_l = ('<h3 style="font-size:22px;margin-top:8px">천마계 통판북</h3>'
           '<p>천계와 마계의 물품을 정리한 카탈로그. 주 이용 연령층은 22세에서 80세까지다. 서명이 끝나면 보유 금액에서 자동으로 차감되고 5초 안에 배달된다.</p>'
-          '<p>천계 상품은 흰 종이에 단정한 서체로, 마계 상품은 검은 종이에 강렬한 서체로 인쇄되어 있다.</p>'
+          '<p>천계 상품은 흰 깃털 펜으로, 마계 상품은 검은 깃털 펜이나 검은 볼펜으로 서명한다. 마계 통판북에는 장난용·위험 물품도 실려 있어 18세 미만은 이용할 수 없다.</p>'
           '<div class="cats">'
-          f'<figure class="cbk heaven"><div class="cv"><span class="ct">Catalogus Caelestis</span>'
-          f'<div class="cimg"><img src="{img_url("cat_heaven")}" alt="천상의 장미 판화" loading="lazy"></div>'
-          '<h4>천계 통판북</h4><span class="cl">Celestial Mail Order</span>'
-          '<ul><li>흰 깃털 펜으로 서명</li><li>서명 즉시 보유 금액에서 차감</li><li>5초 안에 배달</li></ul>'
-          '<div class="sig">서명</div></div></figure>'
-          f'<figure class="cbk hell"><div class="cv"><span class="ct">Catalogus Infernalis</span>'
-          f'<div class="cimg"><img src="{img_url("cat_hell")}" alt="지옥의 심판관 미노스 판화" loading="lazy"></div>'
-          '<h4>마계 통판북</h4><span class="cl">Infernal Mail Order</span>'
-          '<ul><li>검은 깃털 펜 또는 검은 볼펜으로 서명</li><li>장난용·위험 물품 포함</li></ul>'
-          '<div class="warn">18세 미만 이용 불가</div><div class="sig">서명</div></div></figure>'
-          '</div>'
-          '<p class="catcred">표지 판화 <sup class="cite">[11, 12]</sup></p>')
+          '<figure class="cbk heaven"><span class="blk"></span><span class="rb"></span><div class="cv">'
+          + corners("fl-h", "#fbedb8", "#c99d45", "#8f6a2c") +
+          '<span class="ct">Catalogus Caelestis</span>'
+          '<div class="sg">' + seal("heaven", "sg-h", "#fbedb8", "#c99d45", "#8f6a2c") + '</div>'
+          '<h4 class="gold">천계 통판북</h4><span class="cl">Celestial Mail Order</span></div></figure>'
+          '<figure class="cbk hell"><span class="blk"></span><span class="rb"></span><div class="cv">'
+          + corners("fl-d", "#e7c4b4", "#9e3a2c", "#4a120c") +
+          '<span class="ct">Catalogus Infernalis</span>'
+          '<div class="sg">' + seal("hell", "sg-d", "#f2c9b4", "#b8483a", "#5a160e") + '</div>'
+          '<h4 class="ember">마계 통판북</h4><span class="cl">Infernal Mail Order</span>'
+          '<span class="seal">18세 미만 열람 금지</span></div>'
+          '<span class="clasp"><i></i></span></figure>'
+          '</div>')
 wld2_r = plate("lighthouse", "포구의 등대", "crop wide", "폭풍 치는 해안에 선 등대") + ticket_html()
 H.append(('wld', spread(wld1_l, wld1_r, rh_l="Worlds", fol=(14, 15), sid="wld") + spread(wld2_l, wld2_r, rh_l="Worlds", fol=(16, 17))))
 
