@@ -386,7 +386,7 @@ CSS = re.sub(r"\n/\*[^*]*\*/\n", "\n", CSS)
 # ------------------------------------------------------------------ content
 TABS = [("cov", "표지", "Cover", "I"), ("pro", "프롤로그", "Prologue", "II"), ("el", "네 학자", "Elements", "III"),
         ("sch", "학교", "School", "IV"), ("mag", "마법", "Magic", "V"), ("wld", "세계", "Worlds", "VI"),
-        ("rum", "소문", "Rumors", "VII"), ("tm", "시간", "Time", "VIII")]
+        ("rum", "소문", "Rumors", "VII"), ("tm", "시간", "Time", "VIII"), ("adm", "캐릭터 설정", "Character", "IX")]
 
 plate_no = [0]
 def plate(key, title, cls="", alt=""):
@@ -488,7 +488,7 @@ H = []
 toc_items = [("pro", "프롤로그", "Prologue", 2), ("el", "네 명의 학자, 네 명의 여신", "The Four Scholars", 6),
              ("sch", "학교에서 지낸다는 것", "The School", 8), ("mag", "마력과 마법사", "Magic &amp; Rank", 12),
              ("wld", "세계와 차원열차", "Worlds", 14), ("rum", "아직 닿지 않은 것들", "Rumors", 18),
-             ("tm", "태양이 도는 방식", "The Cycle of Suns", 20)]
+             ("tm", "태양이 도는 방식", "The Cycle of Suns", 20), ("adm", "캐릭터 설정", "Character", 24)]
 toc = "".join(f'<li><a href="#p@@{k}@@" data-goto="@@{k}@@">{t}<span class="la">{e}</span></a><i></i><span>@@n:{k}@@</span></li>' for k, t, e, p in toc_items)
 cover_l = (f'{logo("cv")}<h1>아이파베스</h1><p class="sc">AIPHABESS</p><p class="la">School of All Origins</p>'
            f'<div class="orn-g"></div>'
@@ -534,11 +534,12 @@ H.append(('el', spread(el_l, el_r, rh_l="The Four Scholars", fol=(6, 7), sid="el
 # school -------------------------------------------------------------------------
 sch1_l = (head("Caput IV · The School", "학교에서 지낸다는 것") +
           '<article><h3>아이파베스와 마을</h3><p>5개의 명문 학교 중 하나인 아이파베스와 그 마을을 중심으로 이야기가 진행된다. 도서관이자 학교인 아이파베스 덕분에 반도 끝의 작은 마을은 대도시로 변할 수 있었다. 삼면이 바다인 이 대도시는 무역을 통틀어 다양한 종족이 먹을 수 있는 맛집과 볼거리가 많아 살고 싶은 마을 10위 안에 들기도 한다.</p></article>'
-          '<article><h3>입학과 반 배정</h3><p>학교는 15세 이후 정식 입학이 가능하지만 필수는 아니다. 어떤 나이든 졸업할 의지가 있다면 입학을 허용하기 때문에, 같은 반 안에서도 학생들의 나이는 제각각이다.</p><p>반과 속성 배정은 교장이 아닌, 학생의 조상이나 그 종족이 섬기는 신수, 혹은 위대한 업적을 남기고 사라진 존재 중 하나가 결정한다. 입학 시 점성 선생님이 그 존재들과의 접점을 시도해주며, 점성 선생님을 통해 꾸는 꿈은 그들이 그려낸 환상이나 믿음 등 다양한 형태로 나타난다. 반의 이름 역시 그들이 직접 지정해준다.</p></article>'
+          '<article><h3>입학과 반 배정</h3><p>정식 입학은 15세부터 할 수 있고, 나이 상한은 없다. 어떤 나이든 졸업할 의지가 있다면 입학을 허용하기 때문에, 같은 반 안에서도 학생들의 나이는 제각각이다.</p><p>반과 속성 배정은 교장이 아닌, 학생의 조상이나 그 종족이 섬기는 신수, 혹은 위대한 업적을 남기고 사라진 존재 중 하나가 결정한다. 입학 시 점성 선생님이 그 존재들과의 접점을 시도해주며, 점성 선생님을 통해 꾸는 꿈은 그들이 그려낸 환상이나 믿음 등 다양한 형태로 나타난다. 반의 이름 역시 그들이 직접 지정해준다.</p></article>'
           '<article><h3>졸업</h3><p>졸업 조건은 한 가지로 정해져 있지 않다. 그랑프리 대회에서 우승하거나, 담당 선생님에게 공식적으로 인정받는 등 조건은 학생마다 다양하다. 졸업이 확정된 학생은 현 교장 선생님으로부터 원하는 마법을 하나 직접 배울 수 있다. 어떤 마법이든 상관없다.</p></article>')
 sch1_r = ('<article style="margin-top:8px"><h3>선생님</h3><p>선생님 대부분은 이 학교 출신 졸업생이다. 자신이 배운 곳에서 다시 가르치는 자리에 서는 것, 그 자체가 하나의 순환이기도 하다. 지금까지 언급된 선생님은 다음과 같다.</p>'
           '<div class="menu"><div><b>교장 선생님</b><i></i><span>저주 속성</span></div><div><b>점성 선생님</b><i></i><span>안내자</span></div><div><b>보건 · 연금술 선생님</b><i></i><span>둘 다 독 속성, 쌍둥이</span></div></div></article>'
           '<article><h3>기숙사</h3><p>기숙사 생활은 의무다. 입학하면 부모와 잠시 이별하고 학교 안에서 생활한다. 기숙사는 반마다 하나씩 배정되며, 같은 반 학생들이 한 공간에서 함께 지낸다. 단순한 규칙이 아니라 교우 관계를 자연스럽게 만들기 위한 학교의 방침이다.</p></article>'
+          '<article><h3>마스터반</h3><p>반은 이름도 성격도 저마다 다르지만, 마스터반만은 조금 특별하다. 일반 학교의 학생회처럼 회장과 부회장을 두는 학회 같은 반으로, 성적이 뛰어나고 기품이 있으며 여러 선생님에게 인정받은 학생만 가입할 수 있다.</p></article>'
           '<article><h3>동양관과 서양관</h3><p>본래 하나의 학교였으나 문화 차이로 인한 소통 문제가 잦아지면서 동양과 서양으로 나뉘었다. 가르치는 방식도 다르고 교장도 두 명이다. 서양관은 아이파베스, 동양관은 적월향, 줄여서 적월 학교라 불린다.</p></article>'
           '<article><h3>도서관으로서의 아이파베스</h3><p>초기에는 방대한 역사와 기록을 책으로 엮어 학생들에게 배포했으나, 대부분 전문 연구 자료 수준으로 난해했다. 이후 선생님들이 학생들과 함께 알기 쉽게 다시 쓰면서 지금은 모든 분류의 책이 구비되어 있다. 원본 자료와 중요 서적을 열람하려면 교장과의 약속뿐 아니라 대마법사의 맹약과 4원소 학자의 서약까지 필요하다. 연구에 흥미가 있는 학생은 교장과 함께 지하로 내려가 기록을 분석하고, 이해하기 쉬운 형태로 정리하는 작업에 참여할 수 있다.</p></article>')
 sch2_l = (plate("harbour", "항구 마을", "", "돛단배가 오가는 항구와 부두의 마을") +
@@ -549,13 +550,13 @@ _A = re.findall(r'<article.*?</article>', sch1_l + sch1_r + sch2_l + sch2_r, fla
 _A = [re.sub(r'^<article style="margin-top:8px">', '<article>', a) for a in _A]
 _harbour = re.search(r'<figure.*?</figure>', sch2_l, flags=re.S).group(0)
 H.append(('sch', spread(head("Caput IV · The School", "학교에서 지낸다는 것") + _A[0] + _A[1], _A[2] + _A[3], rh_l="The School", fol=(8, 9), sid="sch")
-              + spread(_A[4] + _A[5], _A[6] + _A[7], rh_l="The School")
-              + spread(_A[8] + _A[9], _harbour, rh_l="The School")))
+              + spread(_A[4] + _A[5] + _A[6], _A[7] + _A[8], rh_l="The School")
+              + spread(_A[9] + _A[10], _harbour, rh_l="The School")))
 
 # magic --------------------------------------------------------------------------
 mag_l = (head("Caput V · Magic &amp; Rank", "마력과 마법사") +
          '<div class="bq"><b>마력이 없는 것이 아니다. 잠들어 있을 뿐이다.</b><span>이 세계의 시민들은 종족이 다양하며, 마력을 자각한 존재를 마법사라 부른다. 자각하는 순간 마력은 저마다 다른 방식으로 쓰인다.</span></div>'
-         '<p style="margin-top:22px">자신만의 독특한 속성을 개발해 한층 발전시키는 것도 가능하다. 속성이 두 가지인 경우도 있는데, 유전적으로 타고나기도 하고 스스로의 힘을 각성시켜 새롭게 만들어내기도 한다.</p>'
+         '<p style="margin-top:22px">자신만의 독특한 속성을 개발해 한층 발전시키는 것도 가능하다. 속성은 최대 두 가지까지 가질 수 있다. 두 번째 속성은 유전적으로 타고나기도 하고, 스스로의 힘을 각성시켜 새롭게 만들어내기도 한다.</p>'
          '<p style="font-weight:700">입학 후에도 속성이 늘어날 가능성이 있으며, 훗날 각성을 통해 새로운 속성이 깨어나는 경우도 있다.</p>')
 mag_r = ('<h3 style="font-size:22px;margin-top:8px">마법사 등급과 졸업 후 진로</h3>'
          '<p>졸업과 동시에 마법사 등급이 부여되며, 등급은 졸업 방식에 따라 달라진다.</p>'
@@ -568,12 +569,12 @@ H.append(('mag', spread(mag_l, mag_r, rh_l="Magic &amp; Rank", fol=(12, 13), sid
 
 # worlds -------------------------------------------------------------------------
 wld1_l = (head("Caput VI · Worlds", "세계와 차원열차") +
-          '<p class="drop">아이파베스의 초대장은 경계를 가리지 않는다. 가까운 마을은 물론, 이름조차 낯선 머나먼 세계에서도 초대장을 받고 찾아오는 존재들이 있다. 그래서 학생들의 출신을 한마디로 단정하기는 어렵다. 단, 천사와 악마, 신은 입학할 수 없다.</p>'
+          '<p class="drop">아이파베스의 초대장은 경계를 가리지 않는다. 가까운 마을은 물론, 이름조차 낯선 머나먼 세계에서도 초대장을 받고 찾아오는 존재들이 있다. 초대장은 교장 선생님이나 점성 선생님이 써 주는 추천서다. 그래서 학생들의 출신을 한마디로 단정하기는 어렵다. 단, 천사와 악마, 신은 입학할 수 없다.</p>'
           '<ol class="route"><li><b>머나먼 세계</b><span>초대장을 받은 존재들의 출발지</span></li><li><b>차원열차</b><span>대도시 한켠의 승강장</span></li><li><b>아이파베스</b><span>입학과 도서관의 도시</span></li><li><b>인간계</b><span>입국심사를 거쳐야 함</span></li></ol>'
           '<p>아무리 먼 곳에서 왔더라도 이곳에 닿을 수 있는 것은 대도시 한켠의 차원열차 덕분이다. 다만 인간계로 향하는 열차는 별도의 입국심사를 거쳐야 한다. 마법사가 인간계에 무분별하게 유입되는 것을 막기 위한 절차다.</p>')
 wld1_r = ('<div class="trio" style="margin-top:8px">'
           '<div><h3>인간계 방문</h3><p>마법사가 인간계를 찾을 때는 인간의 향수를 쓴다. 뿌리면 인간들에게 평범한 인간으로 인식된다. 종류가 다양하며 주로 정령이 제조하고, 향이 은은하고 좋을수록 비싸다.</p></div>'
-          '<div><h3>수호자</h3><p>소환자와 소환자의 마을, 집, 교실 등을 지키는 사명을 띠고 소환되는 존재. 동양의 성주신과 비슷하며 형태는 다양하다. 염원이 강할수록 더 강한 수호자를 소환하거나 만들어낼 수 있다. 이름이 부여된 수호자는 천사와 악마를 제외하면 극히 드물다.</p></div>'
+          '<div><h3>수호자</h3><p>소환자와 소환자의 마을, 집, 교실 등을 지키는 사명을 띠고 소환되는 존재. 동양의 성주신과 비슷하며 형태는 다양하다. 염원이 강할수록 더 강한 수호자를 소환하거나 만들어낼 수 있다. 이름이 부여된 수호자는 천사와 악마를 제외하면 극히 드물다. 소환에 너무 큰 마력이 들어 학생은 수호자를 둘 수 없다.</p></div>'
           '<div><h3>골드</h3><p>공식 워프존으로 인간계에 가면 보유한 골드가 그 나라의 화폐로 자동 환전된다. 이 점을 이용해 환율 차익을 노리는 주식 마법사들도 적지 않다.</p></div></div>'
           f'<div class="goldrow"><img class="coinimg" src="{img_url("coin")}" alt="옛 주화 판화"><div><b>100골드 = 약 10,000원</b><span>한화 기준 환산</span></div></div>')
 def seal(kind, gid, c1, c2, c3):
@@ -680,6 +681,39 @@ def tarot_table(rng):
 tar_l = '<span class="cap" style="margin-top:6px">Arcana Maiora · 0 – X</span>' + tarot_table(range(0, 11))
 tar_r = '<span class="cap" style="margin-top:6px">Arcana Maiora · XI – XXI</span>' + tarot_table(range(11, 22))
 H.append(('tm', spread(tm_l, tm_r, rh_l="The Cycle of Suns", fol=(20, 21), sid="tm") + spread(tar_l, tar_r, lh="Tarot", rh_l="Tarot", fol=(22, 23))))
+
+# application (character sheet) ------------------------------------------------------
+def _born_example(age):
+    idx = SUN - age
+    rot = 95 + idx // 22
+    return rot, idx % 22
+_r16, _s16 = _born_example(16)
+def _f(label, la, val="", cls=""):
+    return f'<div class="f {cls}"><dt>{label}<small>{la}</small></dt><dd>{val}</dd></div>'
+adm_r = ('<div class="adm"><div class="adm-h"><span class="sc">Litterae Admissionis</span><b>아이파베스 입학 원서</b>'
+         '<small>95회전 2번째 · 여교황의 태양 · 제&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;호</small></div><dl>'
+         + _f("이름", "Nomen") + _f("종족", "Gens") + _f("나이", "Aetas")
+         + _f("출신 세계", "Origo")
+         + _f("태어난 태양", "Sol natalis", '<span class="bl">　　</span>회전 <span class="bl">　　</span>번째 · <span class="bl wide">　　　　</span>의 태양')
+         + _f("속성", "Elementum", '① <span class="bl wide">　　　　</span>　② <span class="bl wide">　　　　</span>')
+         + _f("추천인", "Commendator", '□ 교장 선생님　　□ 점성 선생님')
+         + _f("입학하려는 까닭", "Causa", "", "tall") +
+         '</dl><div class="adm-sig"><span>서명</span><i></i><span>날짜</span><i></i></div>'
+         '<p class="adm-note">부록 · 입학 원서 견본</p></div>')
+adm_l = (head("Appendix · Character", "캐릭터 설정") +
+         '<p class="guide-lead">아이파베스의 학생을 만들 때 참고할 것들. 오른쪽 입학 원서의 칸을 채우듯 정하면 된다.</p>'
+         '<dl class="guide">'
+         '<div><dt>종족 · 출신</dt><dd>정해진 목록은 없다. 레큐란 대륙에서 왔든, 이름조차 낯선 머나먼 세계에서 왔든 상관없다. 단, 천사와 악마, 신은 입학할 수 없다.<span class="pg">→ @@n:wld@@쪽</span></dd></div>'
+         '<div><dt>나이</dt><dd>15세부터 지원할 수 있고 상한은 없다.<span class="pg">→ @@n:sch@@쪽</span></dd></div>'
+         f'<div><dt>태어난 태양</dt><dd>지금 태양에서 나이만큼 거슬러 센다. 올해 열여섯이라면 {_r16}회전 {_s16}번째, {TAROT[_s16][1]}({ROMAN[_s16]})의 태양에 태어났다. 그 태양의 정위치와 역위치가 성향이 된다.<span class="pg">→ @@n:tm@@쪽</span></dd></div>'
+         '<div><dt>속성</dt><dd>정해진 목록은 없다. 최대 두 가지이며, 입학 후에 늘거나 각성으로 새로 깨어나기도 한다.<span class="pg">→ @@n:mag@@쪽</span></dd></div>'
+         '<div><dt>추천인</dt><dd>초대장은 교장 선생님이나 점성 선생님의 추천서다.<span class="pg">→ @@n:wld@@쪽</span></dd></div>'
+         '<div><dt>반</dt><dd>원서로 정하지 않는다. 입학 후 접점 의식에서 조상이나 신수, 위대한 존재가 정해 준다. 마스터반은 따로 가입하는 반이다.<span class="pg">→ @@n:sch@@쪽</span></dd></div>'
+         '<div><dt>입학 이유</dt><dd>원하는 마법을 배우러 왔는가, 여신의 책을 찾으러 왔는가.<span class="pg">→ @@n:pro@@쪽</span></dd></div>'
+         '</dl>'
+         '<p class="guide-x"><b>학생은 할 수 없는 것</b>수호자 소환 · 18세 미만의 마계 통판북 이용 · 기숙사 밖 생활</p>'
+         '<p class="guide-gm">RP 참여 안내 · 두 번째 속성은 GM 승인을 받는다.</p>')
+H.append(('adm', spread(adm_l, adm_r, rh_l="Character", fol=(24, 25), sid="adm")))
 
 # footer -------------------------------------------------------------------------
 BGM = rd("build/bgm.html").strip()
@@ -1118,7 +1152,13 @@ book3d_html = (
     '.bktoc li button{display:block;width:100%;text-align:left;padding:5px 18px;color:#2b1f14;font-family:"Song Myung",serif;font-size:15px;border-radius:0}'
     '.bktoc li button:hover{background:rgba(110,70,30,.12);color:#2b1f14}'
     '.credit3d{position:fixed;right:14px;bottom:8px;margin:0;font-size:11px;color:#8f7a55;text-shadow:0 1px 2px #000;z-index:5}.credit3d a{color:#cdb382}'
+    '.bkmark{position:fixed;z-index:5;left:-999px;top:0;padding:0;border:0;background:none;cursor:pointer;filter:drop-shadow(1px 3px 3px rgba(0,0,0,.55));transition:transform .2s}'
+    '.bkmark:hover{transform:translateY(4px)}.bkmark:focus-visible{outline:2px solid #e6c97c;outline-offset:3px}'
+    '.bkmark span{display:block;width:30px;height:102px;padding-top:11px;white-space:nowrap;box-sizing:border-box;clip-path:polygon(0 0,100% 0,100% 100%,50% 87%,0 100%);'
+    'background:repeating-linear-gradient(90deg,rgba(255,255,255,.07) 0 1px,transparent 1px 2.5px),linear-gradient(90deg,#4f140d,#8f2519 28%,#b8382a 50%,#8a2216 74%,#4a120c);'
+    'writing-mode:vertical-rl;font-family:"Song Myung",serif;font-size:12.5px;letter-spacing:.06em;color:#f0d488;text-shadow:0 1px 0 rgba(0,0,0,.6)}'
     '</style></head>\n<body class="desk">{TOPNAV}<main><div id="flip3d"></div>'
+    '<button class="bkmark" id="bkMark" aria-label="캐릭터 설정 쪽으로 이동"><span>캐릭터 설정</span></button>'
     '<nav class="bkbar" aria-label="책 넘기기"><button class="ar" id="bkPrev" aria-label="앞 쪽">‹</button><span id="bkNo" aria-live="polite"></span>'
     '<button class="ar" id="bkNext" aria-label="다음 쪽">›</button><span class="sep"></span>'
     '<div class="bktoc"><button id="bkTocBtn" aria-expanded="false" aria-controls="bkToc">차례</button><ol id="bkToc" hidden>'
@@ -1131,7 +1171,10 @@ book3d_html = (
     '<script>$(function(){var N=' + str(N_PAGES) + ',pages=[];for(var i=0;i<N;i++){pages.push("assets/pages/p"+(i<10?"0":"")+i+".webp")}'
     'function h(){return Math.max(560,window.innerHeight-$(".topnav").outerHeight(true)+44)}'
     'var om=/[?&]page=(\d+)/.exec(location.search),bk;'
-    'function upd(){var p=bk&&bk.target?bk.target._activePage:null;if(p)$("#bkNo").text(p+" / "+N)}'
+    'function upd(){var p=bk&&bk.target?bk.target._activePage:null;if(p)$("#bkNo").text(p+" / "+N);mark(p)}'
+    'function mark(p){var f=$("#flip3d"),o=f.offset(),bh=f.height()-10,pw=bh*560/780,cx=o.left+f.width()/2,shut=!p||p<=1||p>=N;'
+    '$("#bkMark").css({left:Math.round((shut?cx+pw*.42:cx+pw*.78)-15),top:Math.round(o.top+bh-54)})}'
+    '$("#bkMark").on("click",function(){bk.gotoPage(' + str(CHAP_PAGE["adm"] + 1) + ');setTimeout(upd,50)});'
     '$("#flip3d").height(h());'
     'bk=$("#flip3d").flipBook(pages,{openPage:om?+om[1]:1,webgl:true,hard:"cover",transparent:true,height:h(),duration:900,soundEnable:true,'
     'enableDownload:false,controlsPosition:"hide",'

@@ -345,3 +345,28 @@ sup.cite{font-family:'IM Fell English',serif;font-size:.78em;color:#7a5f3e;verti
 .colophon{display:flex;flex-direction:column;justify-content:flex-end;min-height:85%;font-size:.86em}
 .colophon .colo-t{font-family:'Song Myung',serif;font-size:1.25em;margin:.6em 0 .2em}
 .colophon .colo-n{margin-top:1.2em;padding-top:.7em;border-top:1px solid rgba(43,31,20,.4);font-size:.9em;color:#6b4a2a}
+
+/* ===== 입학 원서 (character sheet) ===== */
+.adm{margin-top:.4em;padding:1.1em 1.25em 1em;border:1px solid rgba(43,31,20,.6);outline:1px solid rgba(43,31,20,.3);outline-offset:.25em;background:rgba(255,251,240,.35)}
+.adm-h{text-align:center;margin-bottom:.5em}
+.adm-h .sc{display:block;font-family:'IM Fell English SC',serif;letter-spacing:.25em;font-size:.8em;color:#7a5f3e}
+.adm-h b{display:block;font-family:'Song Myung',serif;font-weight:400;font-size:1.65em;letter-spacing:.06em;margin:.15em 0}
+.adm-h small{font-size:.78em;color:#6b5a48}
+.adm dl{margin:0}
+.adm .f{display:flex;align-items:flex-end;gap:.8em;min-height:2.15em;padding:.2em 0 .1em;border-bottom:1px dotted rgba(43,31,20,.6)}
+.adm .f dt{flex:none;width:7.4em;font-weight:700;font-size:.92em;line-height:1.2}
+.adm .f dt small{display:block;font-weight:400;font-family:'IM Fell English',serif;font-style:italic;font-size:.82em;color:#7a5f3e}
+.adm .f dd{margin:0;flex:1;font-size:.86em;color:#5b4a38}
+.adm .f.tall{min-height:4.6em;align-items:flex-start;padding-top:.45em}
+.adm .bl{display:inline-block;min-width:2.2em;border-bottom:1px solid rgba(43,31,20,.5)}.adm .bl.wide{min-width:4.5em}
+.adm-sig{display:flex;align-items:flex-end;gap:.5em;margin-top:1em;font-size:.88em}
+.adm-sig i{flex:1;border-bottom:1px solid rgba(43,31,20,.6)}
+.adm-note{margin:.8em 0 0;font-size:.8em;color:#6b5a48;text-align:center}
+.guide-lead{font-size:.88em;color:#5b4a38;margin:0 0 .2em}
+.guide{margin:.4em 0 0}
+.guide>div{display:grid;grid-template-columns:5.4em 1fr;gap:.7em;padding:.36em 0;border-bottom:1px solid rgba(43,31,20,.18)}
+.guide dt{font-weight:700;font-size:.9em;line-height:1.6}
+.guide dd{margin:0;font-size:.86em;line-height:1.55}
+.guide .pg{margin-left:.5em;font-family:'IM Fell English',serif;font-style:italic;color:#7a5f3e;white-space:nowrap}
+.guide-x{margin:.7em 0 0;font-size:.84em;line-height:1.55}.guide-x b{display:block;font-size:1.05em}
+.guide-gm{margin:.7em 0 0;font-size:.78em;color:#7a5f3e;font-style:italic}

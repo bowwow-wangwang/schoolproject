@@ -23,7 +23,7 @@ Python 3.11 이상, Pillow, Google Chrome.
 
 ```
 python build/build_site.py      # HTML 생성
-python build/render_pages.py    # 책장 34쪽을 이미지로 다시 찍기 (책 내용을 고쳤을 때)
+python build/render_pages.py    # 책장 36쪽을 이미지로 다시 찍기 (책 내용을 고쳤을 때)
 ```
 
 3D 책의 쪽은 `docs/book-source.html`(평면 책 원본)을 한 쪽씩 찍은 이미지(`docs/assets/pages/`)다. 책 내용을 고치면 두 명령을 모두 실행한다. 크롬이 기본 위치에 없으면 `CHROME` 환경 변수로 경로를 지정한다.
