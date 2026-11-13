@@ -697,6 +697,12 @@ background-image:radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(90,70,4
 .ap .np table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
 .ap .np td{padding:4px 2px;border-bottom:1px dotted rgba(23,19,15,.5)}
 .ap .np td:last-child{text-align:right;font-family:'IM Fell English',serif}
+.ap .np .by{font-weight:700;margin-right:.2em}
+.ap .np .wire p{text-align:left;margin-top:.5em}.ap .np .wire b{display:block;font-family:'Hahmlet',serif;font-weight:700}
+.ap .np .column .pen{font-style:italic;font-size:13px;margin:-2px 0 6px}
+.ap .np .letter i{display:block;text-align:right;margin-top:4px}
+.ap .np .corr{break-inside:avoid;margin-bottom:16px;padding:10px 12px;border-top:3px double #17130f;border-bottom:1px solid #17130f}
+.ap .np .corr h3{font-size:15px;margin-bottom:2px}.ap .np .corr p{font-size:13px}
 .ap .np-foot{border-top:3px double #17130f;padding-top:8px;font-size:12.5px;text-align:center;font-style:italic}
 
 /* town map page */
@@ -862,7 +868,7 @@ background-image:radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(90,70,4
 @media(max-width:760px){.pam{grid-template-columns:1fr;aspect-ratio:auto;rotate:0deg}.pp{transform:none!important}.face{position:relative;font-size:calc(100cqw / 25);padding:7cqw}.face.out{display:none}}
 """.replace("__NOISE__", NOISE)
 
-NAV_ITEMS = [("index.html", "세계관 책", "Liber"), ("news.html", "레큐란 석간", "Gazette"), ("map.html", "관광 안내", "Itinerarium")]
+NAV_ITEMS = [("index.html", "세계관 책", "Liber"), ("news.html", "차원 뉴스", "Nuntius"), ("map.html", "관광 안내", "Itinerarium")]
 def shimmer_all(text):
     import re as _re
     anim = ('<animateTransform attributeName="gradientTransform" type="translate" '
@@ -925,7 +931,7 @@ def used_on(key):
 REF_START = len(pages_html)
 refs1 = ("<ol class=\"refs\">" + "".join(ref_entry(REF_NO[k], k, used_on(k)) for k in REF_BOOK) + "</ol>")
 n0 = len(REF_BOOK)
-refs2 = ("<h4>레큐란 석간 · 관광 안내에 실린 판화</h4><ol class=\"refs\">" +
+refs2 = ("<h4>차원 뉴스 · 관광 안내에 실린 판화</h4><ol class=\"refs\">" +
          "".join(ref_entry(n0 + i + 1, k) for i, k in enumerate(REF_SITE)) + "</ol>"
          "<h4>질감 · 글꼴 · 프로그램</h4><ol class=\"refs\">"
          f"<li><b>[{n0 + len(REF_SITE) + 1}]</b> Poly Haven. 「Brown Leather」, 「Wood Table Worn」 질감 사진. polyhaven.com. CC0.</li>"
@@ -971,57 +977,66 @@ def npimg(key, cap, cls=""):
     return f'<figure class="{cls}"><img src="{img_url(key)}" alt="{cap}" loading="lazy"><figcaption><span>{cap}</span><span>판화: {a}</span></figcaption></figure>'
 
 news = f'''<div class="np">
-<div class="np-top"><span>Specimen Issue · 견본호</span><span>세계관 안내판</span><span>값 1골드</span></div>
-<div class="np-title"><h1>레큐란 석간</h1><span class="sc">The Recuran Evening Post</span></div>
-<div class="np-date"><span>95회전 18번째 달의 태양 · 첫날 (3월 7일)</span><span>인간계 기준 약 2,086년째</span><span>아이파베스 대도시 서항 인쇄소 발행</span></div>
+<div class="np-top"><span>월간 · 3월호</span><span>모든 차원 승강장에서 판매</span><span>값 1골드</span></div>
+<div class="np-title"><h1>차원 뉴스</h1><span class="sc">The Dimensional News</span></div>
+<div class="np-date"><span>95회전 18번째 달 · 3월 10일 발행</span><span>발행인 · 차원 정보 제공자</span><span>레큐란 지국 · 아이파베스 서항</span></div>
 <div class="np-front">
- <div class="lead"><span class="kick">School · 학교</span>
-  <h2>새 태양 첫날, 아이파베스 정문에 입학 행렬</h2>
-  <p class="deck">나이 제한은 "졸업할 의지"뿐 … 반과 속성은 올해도 조상과 신수가 정한다</p>
-  {npimg("np_square", "입학 첫날, 사람들로 붐비는 광장", "crop")}
-  <p>달의 태양이 뜬 첫날, 아이파베스 정문 앞은 새 학생들로 붐볐다. 정식 입학은 15세부터 가능하지만 필수는 아니어서, 줄 선 이들의 나이는 제각각이었다. 학교는 어떤 나이든 졸업할 의지만 있으면 입학을 허용한다.</p>
-  <p>반과 속성은 교장이 정하지 않는다. 학생의 조상, 그 종족이 섬기는 신수, 혹은 위대한 업적을 남기고 사라진 존재 가운데 하나가 정한다. 입학생은 점성 선생님의 도움으로 그 존재와의 접점을 시도하며, 이때 꾸는 꿈은 환상이나 믿음 등 저마다 다른 모습으로 나타난다. 반의 이름도 그 존재가 직접 지어 준다.</p>
-  <p>입학이 확정되면 부모와 잠시 헤어져 기숙사에 들어간다. 기숙사는 반마다 하나씩이며 생활은 의무다. 학교는 "교우 관계를 자연스럽게 만들기 위한 방침"이라고 설명했다.</p>
+ <div class="lead">
+  <h2>새 태양 '달'이 뜬 날, 아이파베스 정문 앞 줄이 필사가 골목까지</h2>
+  <p class="deck">입학 접수 첫날 지원자 몰려 … 최고령은 일흔넷, 최연소는 열다섯</p>
+  {npimg("np_square", "입학 접수 첫날 아침의 광장", "crop")}
+  <p><b class="by">【아이파베스 = 리넨 도르 기자】</b> 열여덟 번째 태양, 달이 떠오른 지난 7일 아침. 아이파베스 정문 앞에 선 줄은 해가 중천에 걸릴 무렵 언덕 아래 필사가 골목 어귀까지 이어졌다. 학교는 접수 인원을 밝히지 않았지만, 줄을 지켜본 골목 상인들은 "예년보다 확실히 길다"고 입을 모았다.</p>
+  <p>가장 눈길을 끈 지원자는 올해 일흔넷인 오르다 벨크 씨다. 반도 북쪽 농가에서 사흘을 걸어왔다는 그는 "졸업할 마음만 있으면 받아 준다길래 왔다. 나이는 서류에 적는 숫자일 뿐"이라며 웃었다. 같은 줄 맨 앞에는 바로 이날 열다섯이 된 학생이 서 있었다.</p>
+  <p>접수를 마친 지원자들은 점성탑에서 반과 속성을 정하는 접점 의식을 차례로 치르고 있다. 의식 중에 꾼 꿈 이야기는 벌써 만족 시장의 단골 화제가 됐다. 입학이 확정된 학생은 이달 안에 반별 기숙사로 들어간다.</p>
  </div>
  <aside>
-  <div class="box" style="margin-bottom:16px"><span class="kick">Calendarium</span><h3>오늘의 태양</h3><span class="big">XVIII · 달</span>
-   <p>95회전 18번째 태양. 정위치는 불안·애매함·혼돈, 역위치는 불안 해소·명료함·혼돈의 끝.</p>
-   <p style="margin-top:6px;font-family:'IM Fell English',serif;font-size:16px">(95 − 1) × 22 + 18 = 2,086</p></div>
-  <div class="box" style="margin-bottom:16px"><span class="kick">Cambium</span><h3>골드 시세</h3>
-   <table><tr><td>100골드</td><td>≈ 10,000원</td></tr><tr><td>환전 방법</td><td>공식 워프존 자동</td></tr></table>
-   <p style="margin-top:8px">인간계 화폐로 자동 환전된다. 환율 차익을 노리는 "주식 마법사"도 적지 않다.</p></div>
-  <article><span class="kick">Rumor · 소문란</span><h3>여신의 책 네 권, 올해는 찾을까</h3>
-   <p>학교 어딘가에 사계절 여신의 가호가 깃든 책이 네 권 숨겨져 있다는 소문은 올해도 신입생 사이에서 가장 먼저 퍼졌다. 본 사람도, 실재를 확인한 사람도 없다. 아이파베스를 설계한 대마법사의 행방 역시 여전히 알려지지 않았다.</p></article>
+  <div class="box" style="margin-bottom:16px"><h3>이달의 태양</h3><span class="big">XVIII · 달</span>
+   <p>정위치 · 불안, 애매함, 혼돈<br>역위치 · 불안 해소, 명료함, 혼돈의 끝</p>
+   <p style="margin-top:6px;font-family:'IM Fell English',serif;font-size:15px">(95 − 1) × 22 + 18 = 2,086</p></div>
+  <div class="box" style="margin-bottom:16px"><h3>골드 시세</h3>
+   <table><tr><td>100골드 · 지난달</td><td>9,870원</td></tr><tr><td>100골드 · 이번 달</td><td>10,240원</td></tr><tr><td>변동</td><td>+370원</td></tr></table>
+   <p style="margin-top:8px">공식 워프존 자동 환전 기준. 새 태양을 맞아 인간계로 가는 마법사가 늘며 소폭 올랐다.</p></div>
+  <div class="box"><h3>날씨 · 물때</h3>
+   <table><tr><td>반도 날씨</td><td>서풍, 맑음</td></tr><tr><td>안개 곶</td><td>짙은 안개 잦음</td></tr><tr><td>서항 만조 (15일)</td><td>06:12 · 18:40</td></tr><tr><td>서항 간조 (15일)</td><td>00:05 · 12:26</td></tr></table></div>
  </aside>
 </div>
 <div class="cols">
- <article><span class="kick">Graduation · 졸업</span><h3>졸업생 특전 "원하는 마법 하나"</h3>
-  <p>아이파베스의 졸업 조건은 하나로 정해져 있지 않다. 그랑프리 우승, 담당 선생님의 공식 인정 등 학생마다 다르다. 졸업이 확정되면 현 교장 선생님에게서 원하는 마법 하나를 직접 배울 수 있다. 어떤 마법이든 상관없다.</p>
-  <p>마스터 반 출신이나 그랑프리 우승자는 곧바로 1급 마법사가 되고, 그 밖의 졸업생은 2급 또는 3급을 받으며 1급 시험 응시 자격을 함께 얻는다.</p></article>
- <article><span class="kick">Grand Prix</span><h3>4년에 한 번, 반 대항 그랑프리</h3>
-  <p>선후배 구분 없이 참가하는 반 대항전이다. 공정성을 위해 속성이 두 개인 반과 하나인 반을 나눠 두 경기를 치르고, 두 우승 팀이 동의하면 결승전이 열린다. 우승하면 수석 졸업 자격 또는 상금과 아이템을 받는다. 대회 기간에는 친선전도 함께 열린다.</p></article>
- <div class="box ad"><span class="kick">Advertisement</span><h3>천마계 통판북</h3><span class="big">서명 5초, 배달 5초</span>
+ <article>{npimg("np_station", "역전 신시가지 승강장")}<h3>인간계행 입국심사, 대기 최장 두 시간</h3>
+  <p><b class="by">【차원열차 승강장 = 리넨 도르 기자】</b> 새 태양을 맞아 인간계(Mortalia)로 건너가려는 마법사가 몰리면서 입국심사 줄이 길어졌다. 역전 신시가지 3번 승강장에서 9년째 일하는 토비아스 렌 씨는 "명절 귀성길과 비슷하다. 향수를 너무 진하게 뿌린 손님은 심사관이 다시 뿌리고 오라며 돌려보낸다"고 전했다. 승강장 쪽은 혼잡이 이달 말까지 이어질 것으로 보고 있다.</p></article>
+ <article><h3>'인간의 향수' 품귀 … 은은한 향은 값이 두 배</h3>
+  <p><b class="by">【서항 = 하윤 세레 기자】</b> 인간계 방문객이 늘면서 인간의 향수가 동났다. 역전 신시가지에서 조향소를 하는 정령 시아 씨는 "은은한 향은 오래 공들여야 나온다. 서두르면 향이 금방 날아가 인간 눈에 들킨다"며 이달 물량은 이미 바닥났다고 말했다. 항구 뒷골목에서는 출처를 알 수 없는 싼 향수가 돈다는 말도 나온다.</p></article>
+ <div class="box ad"><h3>천마계 통판북</h3><span class="big">서명 5초, 배달 5초</span>
   <p>천계 상품은 흰 종이·흰 깃털 펜으로, 마계 상품은 검은 종이·검은 깃털 펜으로 서명하십시오. 보유 금액에서 자동 차감됩니다.</p>
   <p style="margin-top:6px;font-size:12px">※ 마계 상품은 18세 미만 이용 불가</p></div>
- {npimg("np_alley", "항구 뒷골목")}
- <article><span class="kick">Society · 사회</span><h3>주선교·죄악교 사건, 수사 여전히 난항</h3>
-  <p>최근 급증한 두 교단과 관련된 피해·학살 사건 수사가 진척을 보이지 못하고 있다. 교단마다 목적은 다르지만, 무언가를 소환하는 것이 아니라 직접 만들어내려 한다는 점은 같다는 것이 지금까지의 분석이다. 확실한 증거 없이는 검거가 어렵다.</p></article>
- {npimg("np_station", "차원열차 승강장")}
- <article><span class="kick">Transit · 교통</span><h3>인간계행 차원열차, 입국심사 필수</h3>
-  <p>머나먼 세계에서 오는 학생들도 대도시 한켠의 차원열차 승강장을 통해 아이파베스에 닿는다. 다만 인간계로 가는 열차는 별도의 입국심사를 거쳐야 한다. 마법사의 무분별한 유입을 막기 위한 절차다. 천사와 악마, 신은 입학할 수 없다는 점도 다시 안내되었다.</p></article>
- <div class="box"><span class="kick">Advertisement</span><h3>정령 조향소 · 인간의 향수</h3>
-  <p>한 번 뿌리면 인간에게 평범한 인간으로 보입니다. 향이 은은하고 좋을수록 오래, 그리고 비쌉니다.</p><p style="margin-top:6px"><b>인간계 방문 전 필수품</b></p></div>
- <article><span class="kick">Notice · 공고</span><h3>주신의 비서·신들의 보좌관 시험 접수</h3>
-  <p>점성 선생님의 신뢰를 바탕으로 지원할 수 있다. 공무원 시험과 비슷하며 이론과 실전 시험을 모두 치른다. 점성 선생님의 신뢰는 평소 행동에 달려 있어 난이도가 높다. 합격자 대부분은 판단력이 뛰어나고 성실한 학생이었다.</p></article>
- {npimg("np_reading", "대열람실. 지하 서고는 이 아래에 있다")}
- <article><span class="kick">Library · 도서관</span><h3>지하 서고 원본 열람, 세 겹의 허락 필요</h3>
-  <p>원본 자료와 중요 서적을 보려면 교장과의 약속, 대마법사의 맹약, 4원소 학자의 서약이 모두 필요하다. 연구에 흥미가 있는 학생은 교장과 함께 지하로 내려가 기록을 분석하고 쉽게 정리하는 작업에 참여할 수 있다.</p></article>
- <article><span class="kick">Column · 칼럼</span><h3>달의 태양에 태어난 아이들</h3>
-  <p>이 세계의 연도는 타로 22장의 순서대로 돈다. 태양 하나가 인간계의 1년이고, 22개가 돌면 한 회전이다. 마법사들은 "그 태양에 태어난 아이에게는 정위치와 역위치의 기운이 흐른다"고 믿는다. 올해 태어날 아이들에게는 달의 기운, 곧 혼돈과 그 끝이 함께 흐를 것이다.</p></article>
- <div class="box"><span class="kick">Advertisement</span><h3>졸업생 공방 거리</h3>
-  <p>무기 제작 · 연금 재료 · 맞춤 마도구<br>아이파베스 졸업생이 직접 만듭니다.</p></div>
+ <article>{npimg("np_alley", "항구 뒷골목")}<h3>안개 곶 옛 예배당 출입 통제 사흘째</h3>
+  <p><b class="by">【안개 곶 = 하윤 세레 기자】</b> 반도 남쪽 끝 안개 곶의 폐쇄된 옛 예배당 주변 출입이 사흘째 막혀 있다. 최근 늘어난 교단 가운데 주선교와 관련이 있다는 제보가 들어왔지만, 수사 쪽은 "확인된 것이 없다"는 말만 되풀이했다. 곶 아래 등대를 지키는 노라 크레인 씨는 "요 며칠 밤마다 안개 속에서 종소리 같은 게 들린다"고 했다. 교단 사건 수사는 확실한 증거가 없어 여전히 제자리걸음이다.</p></article>
+ <article>{npimg("np_reading", "대도서관 열람실. 지하 서고는 이 아래에 있다")}<h3>지하 서고 문 앞에서 밤새운 신입생, 문은 끝내 열리지 않았다</h3>
+  <p><b class="by">【아이파베스 = 리넨 도르 기자】</b> 입학 사흘째 되던 날 밤, 신입생 한 명이 대도서관 지하 서고 문 앞에서 잠든 채 아침에 발견됐다. 원본을 보려면 교장과의 약속, 대마법사의 맹약, 4원소 학자의 서약이 모두 있어야 하지만 "여신의 책을 먼저 찾고 싶었다"고 한다. 학교 관계자는 "해마다 꼭 한 명은 있다"며 웃었다.</p></article>
+ <article><h3>주신의 비서 시험, 지난 회 합격자 단 두 명</h3>
+  <p>점성 선생님의 신뢰를 얻은 학생만 지원할 수 있는 주신의 비서·신들의 보좌관 시험 접수가 시작됐다. 이론과 실전 시험을 모두 치른다. 지난 회 합격자는 두 명뿐이었다.</p></article>
+ <div class="box wire"><h3>차원 단신</h3>
+  <p><b>인간계(Mortalia)</b> 골드 대비 원화가 약세로 돌아섰다. 주식 마법사들 사이에서는 "이번 달이 기회"라는 말이 돈다.</p>
+  <p><b>적월향</b> 동양관 적월향도 다음 주 새 학기 입학 접수를 시작한다.</p>
+  <p><b>머나먼 세계</b> 초대장을 받은 첫 입학생이 이름조차 처음 듣는 세계에서 차원열차를 타고 도착했다. 승강장 직원들도 그 세계의 이름을 받아 적지 못했다고 한다.</p></div>
+ <article><h3>마계 통판북 '깔깔 폭죽' 회수</h3>
+  <p>천마계 통판북이 마계 장난감 '깔깔 폭죽'을 거둬들인다. 18세 미만이 서명한 주문이 잇따랐기 때문이다. 서명 5초 만에 배달되는 탓에 막을 틈이 없었다는 설명이다.</p></article>
+ <article class="column"><h3>달의 태양 아래서</h3>
+  <p class="pen">필명 · 별을 세는 사람</p>
+  <p>달의 해에 태어나는 아이들에게는 불안과 혼돈이, 그리고 그 혼돈의 끝이 함께 흐른다고들 한다. 나는 그 말을 겁주는 말로 듣지 않는다. 안개가 짙은 해일수록 등대는 더 멀리 보이니까. 올해 정문 앞에 줄을 선 이들 모두에게, 안개 너머가 보이기를.</p></article>
+ <article class="letter"><h3>독자 투고 · 필사가 골목의 잉크 냄새</h3>
+  <p>졸업하고 공방 거리로 옮긴 지 열두 해. 이달 기사를 보니 필사가 골목의 밤, 덜 마른 잉크 냄새가 그립다. 신입생들이여, 그 냄새를 맡을 수 있을 때 많이 맡아 두시라. <i>— 공방 거리 대장장이 하펠 무어</i></p></article>
+ <div class="box"><h3>정령 조향소 알림</h3>
+  <p>3월 물량은 모두 나갔습니다. 4월분 예약을 받습니다.<br><b>값싼 향수에 속지 마십시오.</b></p></div>
+ <div class="box"><h3>찾습니다</h3>
+  <p>3번 승강장에서 흰 깃털 펜을 잃어버렸습니다. 천계 통판용입니다. 서항 인쇄소에 맡겨 주시면 사례하겠습니다.</p></div>
+ <div class="box"><h3>졸업생 공방 거리</h3>
+  <p>무기 수리 · 연금 재료 · 맞춤 마도구<br>새 태양 맞이 수리비 삼 할 할인</p></div>
+ <div class="corr"><h3>바로잡습니다</h3>
+  <p>2월호 3면 「천마계 통판북 배달 7초」는 「5초」의 잘못이기에 바로잡습니다.</p></div>
+ <div class="corr"><h3>다음 호 예고</h3>
+  <p>4월호 · 새 기숙사 첫 달 탐방 / 안개 곶, 그 뒤</p></div>
 </div>
-<div class="np-foot">이 신문은 아이파베스 세계관을 소개하기 위한 견본호입니다. 실제 발행 일정은 없습니다.</div>
+<div class="np-foot">『차원 뉴스』는 차원 정보 제공자가 매달 펴냅니다. 이 호는 아이파베스 세계관을 소개하는 견본호입니다.</div>
 </div>'''
 index_html = index_html.replace('{TOPNAV}', topnav('index.html'))
 # source pages for build/render_pages.py (not linked from the site)
@@ -1065,7 +1080,7 @@ open(os.path.join(SITE, "index.html"), "w", encoding="utf-8").write(book3d_html.
 if os.path.exists(os.path.join(SITE, "book3d.html")):
     os.remove(os.path.join(SITE, "book3d.html"))
 
-n2 = page("news.html", "레큐란 석간 · 견본호", news)
+n2 = page("news.html", "차원 뉴스 · 3월호", news)
 
 # ---- town map ----------------------------------------------------------------
 DIST = [

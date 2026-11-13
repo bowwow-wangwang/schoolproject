@@ -243,6 +243,12 @@ background-image:radial-gradient(ellipse at 50% 40%,transparent 60%,rgba(90,70,4
 .ap .np table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
 .ap .np td{padding:4px 2px;border-bottom:1px dotted rgba(23,19,15,.5)}
 .ap .np td:last-child{text-align:right;font-family:'IM Fell English',serif}
+.ap .np .by{font-weight:700;margin-right:.2em}
+.ap .np .wire p{text-align:left;margin-top:.5em}.ap .np .wire b{display:block;font-family:'Hahmlet',serif;font-weight:700}
+.ap .np .column .pen{font-style:italic;font-size:13px;margin:-2px 0 6px}
+.ap .np .letter i{display:block;text-align:right;margin-top:4px}
+.ap .np .corr{break-inside:avoid;margin-bottom:16px;padding:10px 12px;border-top:3px double #17130f;border-bottom:1px solid #17130f}
+.ap .np .corr h3{font-size:15px;margin-bottom:2px}.ap .np .corr p{font-size:13px}
 .ap .np-foot{border-top:3px double #17130f;padding-top:8px;font-size:12.5px;text-align:center;font-style:italic}
 
 /* town map page */
